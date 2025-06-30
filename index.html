@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RP-Space</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets\css\style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+    <!-- BUTTONS -->
+    <header id="header" style="font-family: 'Poppins', sans-serif;">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html">Projects</a>
+            <a href="index.html">Research</a>
+            <a href="index.html">Exposition</a>
+            <a href="index.html">Ideas</a>
+            <a href="index.html">About Me</a>
+        </nav>
+    </header>
+
+    <main>
+        <div style="
+            padding-top: 4em;
+            padding-left: 4em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            ">
+            <div style="
+                font-size: 8em;
+                color: rgb(40, 215, 180);
+                ">
+                RP-Space
+            </div>
+            <div style="
+                padding-top: 0em;
+                font-size: 2em;
+                color: rgb(55, 130, 180);
+                ">
+                —A Personal Blog and Portfolio
+            </div>
+        </div>
+
+        <div style="
+            display: flex;
+            align-items: flex-start;
+            padding-top: 4em;
+            padding-bottom: 4em;
+            ">
+            <div style="
+                flex: 1;
+                padding-left: 4em;
+                font-family: 'Poppins', sans-serif;
+                max-width: 80em;
+                ">
+                <div style="font-size: 2em;">Overview</div>
+                <p>
+                    Welcome to <b>RP-Space</b>—my personal blog and portfolio.
+                    I am Rizal Purnawan, an independent researcher and
+                    self-taught mathematician with a formal educational
+                    background in civil engineering. This site serves as a
+                    space where I explore ideas at the intersection of pure
+                    theory and practical application—ranging from topology,
+                    functional analysis, and optimization to machine learning
+                    and computational modeling. It reflects my belief that
+                    mathematics is not merely a tool, but a language for
+                    understanding structure, complexity, and meaning in both
+                    abstract and real-world problems—a language of far-reaching
+                    elegance and beauty.
+                </p>
+                <p>
+                    Here, you’ll find a growing collection of thoughts,
+                    research notes, and example projects—some emerging from
+                    curiosity, others from challenges encountered in
+                    mathematics, computation, or engineering. Whether
+                    theoretical or applied, each piece is part of an ongoing
+                    process: to think deeply, communicate clearly, and
+                    contribute meaningfully to the broader dialogue across
+                    disciplines.
+                </p>
+            </div>
+            <div style="flex: 1; text-align: center;">
+                <img src="assets\img\northen-lights.svg" style="max-width: 40em; height: auto;">
+            </div>
+        </div>
+        
+    </main>
+
+    <div class="feat">
+        <div class="feat_title" style="padding-top: 2em;">
+            <a href="index.html">Featured Idea</a>
+        </div>
+        <div style="padding-top: 4em; text-align: center;">
+            <img src="assets\img\ideas_illustration.svg" style="max-height: 20em; width: auto;">
+        </div>
+        <div style="padding: 2em;">
+            <p>
+            The idea in this article originated from my past civil
+            engineering project, particularly when I was assigned
+            for determining the foundation design of a tower crane
+            structure used in my project. In order to do that, engineers
+            typically compute the support reaction of the tower crane,
+            then using the reaction forces to proceed with the design
+            and analysis of the foundation. The common approach is;
+            either modelling the structure of the tower crane—which is
+            typically done using commercial software, or alternatively
+            using a manual calculation which can be done with
+            hand-writing or spreadsheet. The former is much more
+            rigorous—providing reliability and high accuracy, faster,
+            but yet quite expensive. The later is oversimplified—causing
+            less-reliability and less accuracy, potentially taking
+            longer time but relatively cheap.
+            </p>
+            <div style="text-align: center;">
+                <img
+                    src="assets\img\quote_icon_v5.svg"
+                    style="max-width: 8em;"
+                    >
+            </div>
+            <div style="
+                text-align: center;
+                font-family: 'Poppins', sans-serif;
+                color: white;
+                font-weight: bold;
+                font-size: larger;
+                ">
+                So, why do we not take a position in between such that our
+                approach is modular and scalable for a similar calculation?
+            </div>
+            <p>
+            To answer the question above, I propose to develop a Python
+            module so that we can automate this task with a considerable
+            rigor but is also very cheap—requiring only cognitive
+            thinking, mathematics and coding skills. And the main
+            strength of this approach is that the module is reproducible,
+            similar to a commercial software. So, the next time we need
+            to compute the support reaction of another tower crane, we
+            can directly use the module.
+            </p>
+            <p>
+            I am always fascinated with developing the underpinning
+            mathematical framework of the program that I will later
+            develop. It is based on a few considerations: First, it gives
+            a clear foundation to the program, grounded in mathematics.
+            Second, it eases the algorithm development and coding process
+            as a guide. In addition, the emergence bridge between pure
+            mathematics and the applied problem presented by the
+            mathematical framework adds elegance and a philosophical
+            implication.
+            </p>
+            <p>
+            This article emphasizes the mathematical structure that
+            emerges from my development in the mathematical framework
+            of the Python module for computing the tower crane support
+            reaction. In particular, I use linear algebra for the model
+            and a little functional analysis. Notably I present a
+            bilinear map $\diamond_q$ which maps the product of
+            $\mathbb{R}^q$ with a $q$-direct sum of 3D Eculidean spaces
+            to a 3D Euclidean space, for any $q \in \mathbb{N}$. The map
+            $\diamond_q$ may be equivalent to another established map,
+            and it may be defined via the classical algebraic operation.
+            It is analogous to an inner product, but is different in the
+            traditional sense since the domain consists of different
+            vector spaces. With $\diamond_q$, I can express the
+            application of a load combination in the system as a
+            bounded linear operator on the $q$-direct sum of 3D Euclidean
+            spaces. I also present another map $\overline{\boxtimes}$
+            which maps the product of a 3D Euclidean space with a
+            $q$-direct sum of 3D Euclidean spaces to the $q$-direct sum
+            via the classical cross product to integrate the moments in
+            the system. The map $\overline{\boxtimes}$ is also bilinear,
+            and it also possesses the antisymmetric property inherited
+            from the cross product in the form of its counterpart
+            $\underline{\boxtimes}$, which is also a bilinear map.
+            I further investigate properties of this linear algebraic
+            model.
+            </p>
+        </div>
+    </div>
+
+    <div class="double_offer">
+        <button class="offer_button">
+            <a href="index.html">Visit My Projects</a>
+        </button>
+        <button class="offer_button">
+            <a href="index.html">Business with Me</a>
+        </button>
+    </div>
+
+
+    <footer>
+        <nav><a href="#header">Back to top</a></nav>
+        <div class="socmed">
+            Find Me on Social Media
+        </div>
+        <div class="socmed_icon">
+            <img src="assets\img\github-tile.svg">
+            <a href="https://github.com/rizalpurnawan23">
+                GitHub
+            </a>
+        </div>
+        <div class="socmed_icon">
+            <img src="assets\img\linkedin-original.svg">
+            <a href="https://www.linkedin.com/in/rizal-purnawan-xcvm23">
+                LinkedIn
+            </a>
+        </div>
+        <div class="socmed_icon">
+            <img src="assets\img\ResearchGate_icon_SVG.svg">
+            <a href="https://www.researchgate.net/profile/Rizal-Purnawan">
+                ResearchGate
+            </a>
+        </div>
+        <div class="socmed_icon">
+            <img src="assets\img\YouTube.svg">
+            <a href="https://www.youtube.com/@abstrak-math">
+                YouTube
+            </a>
+        </div>
+        <p>&copy; Rizal Purnawan 2025</p>
+    </footer>
+</body>
+
+</html>

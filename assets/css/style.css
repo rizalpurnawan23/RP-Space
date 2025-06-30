@@ -1,0 +1,156 @@
+/* style.css */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: small;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+header {
+  background-color: rgb(40, 215, 180);
+  color: white;
+  padding: 1em;
+  text-align: right;
+}
+
+footer {
+  background-color: rgb(55, 130, 180);
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  padding: 1em;
+  text-align: right;
+}
+
+nav a {
+  color: white;
+  font-weight: bold;
+  font-size: medium;
+  text-decoration: none;
+  margin: 0 0.5em;
+}
+
+nav a:hover{
+  text-decoration: underline;
+  text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.4em;
+  color: black;
+}
+
+a:hover{
+  text-decoration: none;
+  text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.4em;
+  color: black;
+}
+
+main {
+  padding: 2em;
+}
+
+.feat {
+  background-color: rgb(40, 215, 180);
+  padding: 1em;
+  color: black;
+  font-size: medium;
+}
+
+.feat_title {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  text-decoration: none;
+  /* text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.4em; */
+  color: white;
+}
+
+.feat_title a {
+  color: white;
+  text-decoration: none;
+  margin: 0 0.5em;
+}
+
+.feat_title a:hover{
+  text-decoration: underline;
+  text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.4em;
+  color: black;
+}
+
+.double_offer {
+  padding-top: 30em;
+  padding-bottom: 10em;
+  text-align: center;
+}
+
+.offer_button {
+  padding: 1em 2em;
+  background-color: rgb(40, 215, 180);
+  border: none;
+  border-radius: 0.2em;
+  margin-right: 1em;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  /* text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.4em; */
+}
+
+.offer_button a {
+  color: white;
+  text-decoration: none;
+}
+
+.offer_button a:hover{
+  text-decoration: none;
+  text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.4em;
+  color: black;
+  text-decoration: underline;
+  text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.4em;
+}
+
+.socmed {
+  text-align: left;
+  padding: 0.6em;
+  font-size: medium;
+}
+
+.socmed_icon {
+  display: flex;
+  align-items: center;
+  padding-left: 1.2em;
+  padding-top: 0.2em;
+  text-align: left;
+  font-size: medium;
+}
+
+.socmed_icon img {
+  max-width: 1.4em; padding-right: 1em;
+}
+
+.socmed_icon a {
+  color: white;
+  text-decoration: none;
+}
+
+.socmed_icon a:hover{
+  text-decoration: none;
+  text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.4em;
+  color: black;
+  text-decoration: underline;
+  text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.2em;
+}
