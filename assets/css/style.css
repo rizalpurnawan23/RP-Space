@@ -5,7 +5,7 @@ html {
 
 body {
   font-family: Helvetica, sans-serif;
-  font-size: small;
+  font-size: medium;
   margin: 0;
   padding: 0;
   line-height: 1.6;
@@ -153,4 +153,21 @@ main {
   text-decoration: underline;
   text-decoration-thickness: 0.2em;
   text-underline-offset: 0.2em;
+}
+
+/* FOR MOBILE */
+@media (max-width: 768px) {
+  body {
+    font-size: 90%;
+    padding: 1rem;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .content {
+    width: 100%;
+    margin: 0;
+  }
 }
