@@ -1,0 +1,68 @@
+<title>{{ page.title }}</title>
+
+<!-- MATHJAX-SETTING -->
+<script>
+window.MathJax = {
+    tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+};
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<!-- FONT-SETTING -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="..\..\assets\css\style.css">
+<link rel="icon" href="..\..\assets\img\favicon.svg">
+
+<!-- COOKIES -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.js"></script>
+<script>
+    function loadAnalytics() {
+        var script = document.createElement('script');
+        script.setAttribute('async', '');
+        script.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=G-Z0BT4032JC');
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-Z0BT4032JC', { anonymize_ip: true });
+    }
+
+    window.addEventListener("load", function() {
+        window.cookieconsent.initialise({
+            palette: {
+                popup: { background: "#28d7b4" },
+                button: { background: "#000" }
+            },
+            theme: "classic",
+            position: "bottom",
+            content: {
+                message: "This site uses cookies to analyze traffic via Google Analytics.",
+                dismiss: "Accept",
+                deny: "Decline",
+                link: "Learn more",
+                href: "../../priavcy.html"
+            },
+            type: "opt-in",
+            onInitialise: function (status) {
+                if (this.hasConsented()) {
+                    loadAnalytics();
+                }
+            },
+            onStatusChange: function(status) {
+                if (this.hasConsented()) {
+                    loadAnalytics();
+                }
+            }
+        });
+    });
+</script>
+
