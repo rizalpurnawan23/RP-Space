@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ page.title }}</title>
+        {% include head.html %}
+    </head>
+    <body>
+        <header id="header">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="https://www.researchgate.net/profile/Rizal-Purnawan/research">
+                    Research
+                </a>
+                <a href="expositions.html">Exposition</a>
+                <a href="ideas.html">Ideas</a>
+                <a href="about.html">About Me</a>
+            </nav>
+        </header>
+        <main>
+            {{content}}
+        </main>
+        <footer>
+            <nav><a href="#header">Back to top</a></nav>
+            <div class="socmed">
+                <div class="socmed_title">
+                    Find Me on Social Media
+                </div>
+                <div class="socmed_icon">
+                    <img src="assets\img\github-tile.svg">
+                    <a href="https://github.com/rizalpurnawan23">
+                        GitHub
+                    </a>
+                </div>
+                <div class="socmed_icon">
+                    <img src="assets\img\linkedin-original.svg">
+                    <a href="https://www.linkedin.com/in/rizal-purnawan-xcvm23">
+                        LinkedIn
+                    </a>
+                </div>
+                <div class="socmed_icon">
+                    <img src="assets\img\ResearchGate_icon_SVG.svg">
+                    <a href="https://www.researchgate.net/profile/Rizal-Purnawan">
+                        ResearchGate
+                    </a>
+                </div>
+                <div class="socmed_icon">
+                    <img src="assets\img\YouTube.svg">
+                    <a href="https://www.youtube.com/@abstrak-math">
+                        YouTube
+                    </a>
+                </div>
+            </div>
+            <p>&copy; Rizal Purnawan 2025</p>
+        </footer>
+    </body>
+</html>
