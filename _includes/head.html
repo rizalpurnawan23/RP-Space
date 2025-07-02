@@ -19,6 +19,8 @@ window.MathJax = {
 <link rel="icon" href="assets\img\favicon.svg">
 
 <!-- COOKIES -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.js"></script>
 <script>
     function loadAnalytics() {
         var script = document.createElement('script');
@@ -32,9 +34,7 @@ window.MathJax = {
         gtag('js', new Date());
         gtag('config', 'G-Z0BT4032JC', { anonymize_ip: true });
     }
-</script>
 
-<script>
     window.cookieconsent.initialise({
         palette: {
             popup: { background: "#28d7b4" },
@@ -47,7 +47,7 @@ window.MathJax = {
             dismiss: "Accept",
             deny: "Decline",
             link: "Learn more",
-            href: "/privacy"
+            // href: "/privacy"
         },
         type: "opt-in",
         onInitialise: function (status) {
