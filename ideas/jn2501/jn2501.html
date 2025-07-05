@@ -3,25 +3,26 @@ layout: subsublevel
 title: RP-Space | Idea JN2501
 ---
 
-<div class="main_content" style="padding-bottom: 4rem;">
+<div class="content" style="margin-bottom: 4rem;">
     <i style="font-size: small;">
         June, 2025      <!-- Type the date here -->
     </i>
-    <div class="article_front">
-        <div class="article_title">
+    <div class="article">
+        <div class="article-title">
             A Hidden Mathematical Structure in the Computation of a Tower Crane Support Reaction
         </div>
-        <div class="article_auth">
+        <div class="article-author">
             Rizal Purnawan
             <a href="https://orcid.org/0000-0001-8858-4036">
-                <img src="..\..\assets\img\ORCID_iD.svg">
+                <img src="..\..\assets\img\ORCID_iD.svg"
+                    class="article-author">
             </a>
         </div>
     </div>
     
     <!-- ANECDOTAL NOTE -->
     <div>
-        <div class="anecdote_title">
+        <div class="anecdote-title">
             Anecdotal Note
         </div>
         <p>
@@ -31,13 +32,13 @@ title: RP-Space | Idea JN2501
             padding-top: 1rem;
             padding-bottom: 1rem;
             font-family: 'Poppins', sans-serif;
-            font-size: large;
+            font-size: medium;
             /* font-style: italic; */
             font-weight: bold;
             text-align: center;
             color: rgb(40, 215, 180);
             ">
-            <img src="..\..\assets\img\quote_icon_v2.svg" style="max-height: 1.6rem">
+            <img src="..\..\assets\img\quote_icon_v2.svg" style="max-height: 1.4rem">
             <div>
                 So, why do we not take a position in between such that our approach is modular and scalable for a similar calculation?
             </div>
@@ -61,91 +62,91 @@ title: RP-Space | Idea JN2501
     <div>
         <h2>Table of Contents</h2>
         <!-- SECTIONS -->
-        <div class="toc_section">Sections</div>
-        <div class="toc_subsection">
+        <div class="toc-section">Sections</div>
+        <div class="toc-subsection">
             <a href="#intro">
                 Introduction
             </a>
         </div>
-        <div class="toc_subsection">
+        <div class="toc-subsection">
             <a href="#algebra_tc">
                 The Algebra of a Tower Crane Structure and Its Properties
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#atc:1-model">
                 Modelling of the System
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#atc:2-lc">
                 Load Combinations
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#atc:3-lc_blo">
                 Load Combinations as Bounded Linear Operators
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#atc:4-force_tc">
                 Force Reaction of TC
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#atc:5-ext_cross_prod">
                 An Extension to Cross Product
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#atc:6-moment_tc">
                 Moment Reaction of TC
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#atc:7-blo_lc">
                 Bounded Linear Operators on Load Combinations
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#atc:8-matrix_tc">
                 Matrix Forms of Operators on Load Combinations
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsection">
             <a href="#bib">
                 Bibliography
             </a>
         </div>
 
         <!-- THEOREM -->
-        <div class="toc_section">Theorem</div>
-        <div class="toc_subsubsection">
+        <div class="toc-section">Theorem</div>
+        <div class="toc-subsubsection">
             <a href="#thm:bilinear_diamond">
                 Bilinearity of $\diamond_q$
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#thm:comb_operators">
                 Combination Operators
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#thm:bilinear_boxtimes">
                 Bilinearity of $\overline{\boxtimes}$
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#thm:comb_boxtimes">
                 $\overline{\boxtimes}$-Combination Composition
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#thm:alt_operators">
                 Operators on Combinations
             </a>
         </div>
-        <div class="toc_subsubsection">
+        <div class="toc-subsubsection">
             <a href="#thm:alt_operators">
                 Operators on Combinations
             </a>
@@ -249,8 +250,8 @@ title: RP-Space | Idea JN2501
                 \begin{split}
                     \alpha a \diamond_q u
                     &= \sum_{k = 1}^q (\alpha a_k) u^k
-                    = \sum_{k = 1}^q \alpha (a_k u^k)
-                    = \alpha \sum_{k = 1}^q a_k u^k
+                    = \sum_{k = 1}^q \alpha (a_k u^k) \\
+                    &= \alpha \sum_{k = 1}^q a_k u^k
                     = \alpha (a \diamond u) \\
                     &= \sum_{k = 1}^q a_k (\alpha u^k)
                     = \sum_{k = 1}^q a_k (\alpha u^k)
@@ -259,19 +260,23 @@ title: RP-Space | Idea JN2501
             $$
             showing that the scalar linearity applies to $\diamond_q$. And we also obtain
             $$
+                \begin{split}
                 (a + b) \diamond_q u
-                = \sum_{k = 1}^q (a_k + b_k) u^k
-                = \sum_{k = 1}^q a_k u^k + b_k u^k
-                = \left( \sum_{k = 1}^q a_k u^k \right) + \left( \sum_{k = 1}^q b_k u^k \right)
-                = (a \diamond_q u) + (b \diamond_q u)
+                &= \sum_{k = 1}^q (a_k + b_k) u^k \\
+                &= \sum_{k = 1}^q a_k u^k + b_k u^k \\
+                &= \left( \sum_{k = 1}^q a_k u^k \right) + \left( \sum_{k = 1}^q b_k u^k \right) \\
+                &= (a \diamond_q u) + (b \diamond_q u)
+                \end{split}
             $$
             and
             $$
+                \begin{split}
                 a \diamond (t + u)
-                = \sum_{k = 1}^q a_k (t^k + u^k)
-                = \sum_{k = 1}^q a_k t^k + a_k + u^q
-                = \left( \sum_{k = 1}^q a_k t^k \right) + \left( \sum_{k = 1}^q a_k u^k \right)
-                = (a \diamond_q t) + (a \diamond_q u)
+                &= \sum_{k = 1}^q a_k (t^k + u^k) \\
+                &= \sum_{k = 1}^q a_k t^k + a_k + u^q \\
+                &= \left( \sum_{k = 1}^q a_k t^k \right) + \left( \sum_{k = 1}^q a_k u^k \right) \\
+                &= (a \diamond_q t) + (a \diamond_q u)
+                \end{split}
             $$
             which show the additive linearity of $\diamond_q$ in both components. Hence, $\diamond_q$ is a bilinear map.
             <div style="text-align: center; font-weight: bold;">
@@ -290,7 +295,7 @@ title: RP-Space | Idea JN2501
                 \forall a \in \mathbb{R}^q \forall u \in \bigoplus_{k = 1}^q V_k \,,\;
                 K_a(u) := a \diamond_q u \,.
             $$
-            And we call the operators $K_{c_1}, \dotsc, K_{c_m}: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ the ***combination operators***. It is not difficult to show that $K_{c_1}, \dotsc, K_{c_m}: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ are <a href="https://en.wikipedia.org/wiki/Bounded_operator">bounded linear operators</a> (<a href="#kreyszig_fa">Kreyszig, 1978</a>), as presented in a more general fashion in the following theorem.
+            And we call the operators $K_{c_1}, \dotsc, K_{c_m}: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ the <b><i>combination operators</i></b>. It is not difficult to show that $K_{c_1}, \dotsc, K_{c_m}: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ are <a href="https://en.wikipedia.org/wiki/Bounded_operator">bounded linear operators</a> (<a href="#kreyszig_fa">Kreyszig, 1978</a>), as presented in a more general fashion in the following theorem.
         </p>
         <!-- THEOREM -->
         <div class="thm">
@@ -312,10 +317,12 @@ title: RP-Space | Idea JN2501
             </i>
             Let $\alpha, \beta \in \mathbb{R}$ and $t, u \in \bigoplus_{k = 1}^q V_k$. By the <a href="#thm:bilinear_diamond">bilinearity of $\diamond_q$</a>, we obtain
             $$
+                \begin{split}
                 K_a(\alpha t + \beta u)
-                = a \diamond_q (\alpha t + \beta u)
-                = \alpha (a \diamond_q t) + \beta (a \diamond_q u)
-                = \alpha K_a(t) + \beta K_a(u) \,,
+                &= a \diamond_q (\alpha t + \beta u) \\
+                &= \alpha (a \diamond_q t) + \beta (a \diamond_q u) \\
+                &= \alpha K_a(t) + \beta K_a(u) \,,
+                \end{split}
             $$
             which shows that $K_a$ is a linear operator (<a href="#roman">Roman, 2005</a>; <a href="#kreyszig_fa">Kreyszig, 1978</a>). And since every linear operator on a finite dimensional vector space is bounded (<a href="#kreyszig_fa">Kreyszig, 1978</a>), hence, $K_a \in \mathcal{B}(\bigoplus_{k = 1}^q V_k, \mathbb{R}^3)$, i.e., $K_a$ is a bounded linear operator.
             <div style="text-align: center; font-weight: bold;">
@@ -385,26 +392,30 @@ title: RP-Space | Idea JN2501
             $$
                 \begin{split}
                     \alpha x \overline{\boxtimes} u
-                    &= (\alpha x \times u^1, \dotsc, \alpha x \times u^q)
-                    = \alpha (x \times u^1, \dotsc, x \times u^q)
-                    = \alpha (x \overline{\boxtimes} u) \\
-                    &= (x \times \alpha u^1, \dotsc, x \times \alpha u^q)
-                    = x \overline{\boxtimes} \alpha u \,,
+                    &= (\alpha x \times u^1, \dotsc, \alpha x \times u^q) \\
+                    &= \alpha (x \times u^1, \dotsc, x \times u^q) \\
+                    &= \alpha (x \overline{\boxtimes} u) \\
+                    &= (x \times \alpha u^1, \dotsc, x \times \alpha u^q) \\
+                    &= x \overline{\boxtimes} \alpha u \,,
                 \end{split}
             $$
             showing the scalar linearity of $\overline{\boxtimes}$. And we also obtain
             $$
+                \begin{split}
                 (x + y) \overline{\boxtimes} u
-                = ((x + y) \times u^1, \dotsc, (x + y) \times u^q)
-                = (x \times u^1 + y \times u^1, \dotsc, x \times u^q + y \times u^q)
-                = x \overline{\boxtimes} u + y \overline{\boxtimes} u
+                &= ((x + y) \times u^1, \dotsc, (x + y) \times u^q) \\
+                &= (x \times u^1 + y \times u^1, \dotsc, x \times u^q + y \times u^q) \\
+                &= x \overline{\boxtimes} u + y \overline{\boxtimes} u
+                \end{split}
             $$
             and
             $$
+                \begin{split}
                 x \overline{\boxtimes} (t + u)
-                = (x \times (t^1 + u^1), \dotsc, x \times (t^q + u^q))
-                = (x \times t^1 + x \times u^1, \dotsc, x \times t^q + x \times u^q)
-                = x \overline{\boxtimes} t + x \overline{\boxtimes} u
+                &= (x \times (t^1 + u^1), \dotsc, x \times (t^q + u^q)) \\
+                &= (x \times t^1 + x \times u^1, \dotsc, x \times t^q + x \times u^q) \\
+                &= x \overline{\boxtimes} t + x \overline{\boxtimes} u
+                \end{split}
             $$
             which show the additive linearity of $\overline{\boxtimes}$ in both components. Hence, $\overline{\boxtimes}$ is a bilinear map.
             <div style="text-align: center; font-weight: bold;">
@@ -419,11 +430,13 @@ title: RP-Space | Idea JN2501
             $$
             Follows from the antisymmetric property of cross product, the map $\underline{\boxtimes}$ is the antisymmetric counterpart of $\overline{\boxtimes}$, as shown by
             $$
+                \begin{split}
                 \forall u \in \bigoplus_{k = 1}^q V_k \forall x \in X \,,\;
                 x \overline{\boxtimes} u
-                = (x \times u^1, \dotsc, x \times u^q)
-                = (-u^1 \times x, \dotsc, -u^k \times x)
-                = -(u \overline{\boxtimes} x) \,.
+                &= (x \times u^1, \dotsc, x \times u^q) \\
+                &= (-u^1 \times x, \dotsc, -u^k \times x) \\
+                &= -(u \overline{\boxtimes} x) \,.
+                \end{split}
             $$
             And from this property, it can be shown that $\underline{\boxtimes}$ is also a bilinear map from the bilinearity of $\overline{\boxtimes}$. These peoperties make $\overline{\boxtimes}$ and $\underline{\boxtimes}$ the natural extension to $\times$.
         </p>
@@ -450,12 +463,14 @@ title: RP-Space | Idea JN2501
             </i>
             Let $a \in \mathbb{R}^q$, $x \in X$ and $u \in \bigoplus_{k = 1}^q V_k$. Follows from the bilinearity of cross product, we obtain
             $$
+                \begin{split}
                 K_a(x \overline{\boxtimes} u)
-                = a \diamond_q (x \overline{\boxtimes} u)
-                = \sum_{k = 1}^q a_k (x \times u^k)
-                = \sum_{k = 1}^q x \times a_k u^k
-                = x \times \sum_{k = 1}^q a_k u^k
-                = x \times K_a(u)
+                &= a \diamond_q (x \overline{\boxtimes} u) \\
+                &= \sum_{k = 1}^q a_k (x \times u^k) \\
+                &= \sum_{k = 1}^q x \times a_k u^k \\
+                &= x \times \sum_{k = 1}^q a_k u^k \\
+                &= x \times K_a(u)
+                \end{split}
             $$
             which shows that
             $$
@@ -498,12 +513,14 @@ title: RP-Space | Idea JN2501
             $$
             Each row vector in $M$ is the moment at the support reaction factored by a load combination. And follows from the <a href="#thm:comb_operators">combination operators theorem</a> and the <a href="#thm:comb_boxtimes">$\overline{\boxtimes}$-combination composition theorem</a>, we obtain
             $$
+                \begin{split}
                 \forall j \in \{1, \dotsc, m\} \,,\;
                 K_{c_j}(\tau)
-                = K_{c_j} \left( \sum_{i = 1}^n \tau_i \right)
-                = \sum_{i = 1}^n K_{c_j}(\tau_i)
-                = \sum_{i = 1}^n K_{c_j}(x_i \overline{\boxtimes} v_i)
-                = \sum_{i = 1}^n x_i \times K_{c_j}(v_i)
+                &= K_{c_j} \left( \sum_{i = 1}^n \tau_i \right) \\
+                &= \sum_{i = 1}^n K_{c_j}(\tau_i) \\
+                &= \sum_{i = 1}^n K_{c_j}(x_i \overline{\boxtimes} v_i) \\
+                &= \sum_{i = 1}^n x_i \times K_{c_j}(v_i)
+                \end{split}
             $$
             which is consistent with how one calculates the moments in a structure by first applying a load combination on assigned external loads.
         </p>
@@ -517,7 +534,9 @@ title: RP-Space | Idea JN2501
             $$
                 \forall a \in \mathbb{R}^q \;
                 \left[\, T_F(a) := \sum_{i = 1}^n K_a(v_i) \,\right]
-                \;\land\;
+            $$
+            and
+            $$
                 \forall a \in \mathbb{R}^q \;
                 \left[\, T_M(a) := \sum_{i = 1}^n x_i \times K_a(v_i) \,\right] \,.
             $$
@@ -590,17 +609,19 @@ title: RP-Space | Idea JN2501
         <p>
             Follows from its definition, for $T_F$, we obtain
             $$
+                \begin{split}
                 T_F(d)
-                = \sum_{i = 1}^n K_d(v_i)
+                &= \sum_{i = 1}^n K_d(v_i)
                 = K_d(v)
                 = d \diamond_q v
-                = \sum_{j = 1}^q d_j v^j
-                = \begin{bmatrix}
+                = \sum_{j = 1}^q d_j v^j \\
+                &= \begin{bmatrix}
                     v^1     & v^2   & \dotsb    & v^q
                 \end{bmatrix}
                 \begin{bmatrix}
                     d_1     \\ d_2  \\ \vdots   \\ d_q
                 \end{bmatrix}
+                \end{split}
             $$
             in which we express $v^1, \dotsc, v^q$ and $d_1, \dotsc, d_q$ column vectors. Hence, we can define a matrix $R_F \in \mathbb{R}^{3 \times q}$ by
             $$
@@ -617,17 +638,19 @@ title: RP-Space | Idea JN2501
         <p>
             In a similar fashion, for $T_M$, we obtain
             $$
+                \begin{split}
                 T_M(d)
-                = \sum_{i = 1}^n x_i \times K_d(v_i)
+                &= \sum_{i = 1}^n x_i \times K_d(v_i)
                 = K_d(\tau)
                 = d \diamond_q \tau
-                = \sum_{j = 1}^q d_j \tau^j
-                = \begin{bmatrix}
+                = \sum_{j = 1}^q d_j \tau^j \\
+                &= \begin{bmatrix}
                     \tau^1     & \tau^2   & \dotsb    & \tau^q
                 \end{bmatrix}
                 \begin{bmatrix}
                     d_1     \\ d_2  \\ \vdots   \\ d_q
                 \end{bmatrix} \,.
+                \end{split}
             $$
             And we define a matrix $R_M \in \mathbb{R}^{3 \times q}$ by
             $$
