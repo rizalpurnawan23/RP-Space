@@ -1,91 +1,76 @@
 ---
-layout: home
+layout: default
 title: RP-Space
 ---
 
-<div style="
-    /* padding-top: 2rem; */
-    padding-left: 4rem;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    ">
-    <div style="
-        font-size: 6rem;
-        color: rgb(40, 215, 180);
-        ">
+<div>
+    <div class="home_title">
         RP-Space
     </div>
-    <div style="
-        padding-top: 0rem;
-        font-size: 2rem;
-        color: rgb(55, 130, 180);
-        ">
-        —A Personal Blog and Portfolio
+    <div class="home_subtitle">
+        A Personal Blog and Portfolio
     </div>
 </div>
 
 <div style="
-    display: flex;
-    align-items: flex-start;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
     ">
-    <div style="
-        flex: 1;
-        padding-left: 4rem;
-        max-width: 60rem;
-        ">
-        <div style="
-            font-size: larger;
-            font-family: 'Poppins', sans-serif;
-            ">
-            Overview
-        </div>
-        <div style="font-size: medium;">
-            <p>
-                Welcome to <b>RP-Space</b>—my personal blog and portfolio. I am <a href="about.html">Rizal Purnawan</a>, an independent researcher and self-taught mathematician with a formal educational background in civil engineering. This site serves as a space where I explore ideas at the intersection of pure theory and practical application—ranging from topology, functional analysis, and optimization to machine learning and computational modeling. It reflects my belief that mathematics is not merely a tool, but a language for understanding structure, complexity, and meaning in both abstract and real-world problems—a language of far-reaching elegance and beauty.
-            </p>
-            <p>
-                Here, you’ll find a growing collection of thoughts, research notes, and example projects—some emerging from curiosity, others from challenges encountered in mathematics, computation, or engineering. Whether theoretical or applied, each piece is part of an ongoing process: to think deeply, communicate clearly, and contribute meaningfully to the broader dialogue across disciplines.
-            </p>
-        </div>
-    </div>
-    <div style="flex: 1; text-align: center;">
-        <img src="assets\img\northen-lights.svg" style="max-width: 30rem; height: auto;">
-    </div>
+    <img src="assets\img\northen-lights.svg" class="featured">
+    <!-- <img src="assets\img\rp-logo-2022_2025-circle.png" 
+        class="featured"> -->
+</div>
+
+<div style="
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+    text-align: center;
+    ">
+    Overview
+</div>
+<div class="content">
+    <p>
+        Welcome to <b>RP-Space</b>—my personal blog and portfolio. I am <a href="about.html">Rizal Purnawan</a>, an independent researcher and self-taught mathematician with a formal educational background in civil engineering. This site serves as a space where I explore ideas at the intersection of pure theory and practical application—ranging from topology, functional analysis, and optimization to machine learning and computational modeling. It reflects my belief that mathematics is not merely a tool, but a language for understanding structure, complexity, and meaning in both abstract and real-world problems—a language of far-reaching elegance and beauty.
+    </p>
+    <p>
+        Here, you’ll find a growing collection of thoughts, research notes, and example projects—some emerging from curiosity, others from challenges encountered in mathematics, computation, or engineering. Whether theoretical or applied, each piece is part of an ongoing process: to think deeply, communicate clearly, and contribute meaningfully to the broader dialogue across disciplines.
+    </p>
 </div>
 
 <!-- FEATURED CONTENTS -->
-<div class="feat"
+<div class="content"
     style="
-        max-width: 80rem;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 0.4rem;
+        margin-top: 8%;
+        background-color: rgb(40, 215, 180);
+        border: none;
+        border-radius: 0.5%;
         ">
-    <div class="feat_title" style="padding-top: 2rem;">
+    <div class="feat_title" style="padding-top: 2%;">
         <a href="ideas\j2501\j2501.html">Featured Idea</a>
     </div>
-    <div style="padding-top: 4rem; text-align: center;">
-        <img src="assets\img\ideas_illustration.svg" style="max-height: 20rem; width: auto;">
+    <div style="padding-top: 6%; text-align: center;">
+        <img src="assets\img\ideas_illustration.svg"
+            class="featured">
     </div>
-    <div style="padding: 4rem;">
+    <div style="padding: 4%;">
         <p>
         The idea in this article originated from my past civil engineering project, particularly when I was assigned for determining the foundation design of a tower crane structure used in my project. In order to do that, engineers typically compute the support reaction of the tower crane, then using the reaction forces to proceed with the design and analysis of the foundation. The common approach is; either modelling the structure of the tower crane—which is typically done using commercial software, or alternatively using a manual calculation which can be done with hand-writing or spreadsheet. The former is much more rigorous—providing reliability and high accuracy, faster, but yet quite expensive. The later is oversimplified—causing less-reliability and less accuracy, potentially taking longer time but relatively cheap.
         </p>
-        <div style="text-align: center;">
+        <div style="text-align: center; padding-top: 2%;">
             <img
                 src="assets\img\quote_icon_v5.svg"
-                style="max-width: 8rem;"
+                class="quotation_pic"
                 >
         </div>
         <div style="
             text-align: center;
+            padding-bottom: 2%;
             font-family: 'Poppins', sans-serif;
             color: white;
             font-weight: bold;
             font-size: larger;
-            max-width: 60rem;
+            max-width: 60%;
             margin: auto;
             ">
             So, why do we not take a position in between such that our approach is modular and scalable for a similar calculation?
@@ -105,14 +90,16 @@ title: RP-Space
     </div>
 </div>
 
-<div class="double_offer">
-    <div style="padding-bottom: 6rem;">
-        <img src="assets\img\construction_illustration.svg" style="max-height: 30rem;">
-    </div>
-    <button class="offer_button">
+<div style="text-align: center; padding-top: 10%;">
+    <img src="assets\img\construction_illustration.svg"
+        class="featured">
+</div>
+
+<div class="offer-env">
+    <button class="offer">
         <a href="projects.html">Visit My Projects</a>
     </button>
-    <button class="offer_button">
+    <button class="offer">
         <a href="inquiry.html">Business Inquiry</a>
     </button>
 </div>
