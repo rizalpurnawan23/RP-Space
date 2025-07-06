@@ -131,6 +131,13 @@ img.home {
     color: white;
 }
 
+.feat_title a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.14rem;
+    text-underline-offset: 0.2rem;
+    color: black;
+}
+
 .quotation_pic {
     max-width: 25%;
 }
