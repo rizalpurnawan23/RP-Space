@@ -133,8 +133,8 @@ img.home {
 
 .feat_title a:hover {
     text-decoration: underline;
-    text-decoration-thickness: 0.14rem;
-    text-underline-offset: 0.2rem;
+    text-decoration-thickness: 0.3rem;
+    text-underline-offset: 0.4rem;
     color: black;
 }
 
