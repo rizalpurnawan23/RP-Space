@@ -303,6 +303,22 @@ img.home {
     color: rgb(50, 90, 125);
 }
 
+.thm a {
+    color: rgb(40, 215, 180);
+}
+
+.mini-game {
+    background-color: white;
+    max-width: 100%;
+    padding: 1rem;
+    border: 0.1rem solid lightgray;
+    border-radius: 0.2rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    /* margin-left: auto;
+    margin-right: auto; */
+    color: rgb(50, 90, 125);
+}
 
 /* FOR DESKTOP */
 @media (min-width: 800px) {
