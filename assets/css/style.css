@@ -320,6 +320,14 @@ img.home {
     color: rgb(50, 90, 125);
 }
 
+.mini-game a {
+    color: rgb(40, 215, 180);
+}
+
+.mini-game a:hover {
+    color: black;
+}
+
 /* FOR DESKTOP */
 @media (min-width: 800px) {
     body {
