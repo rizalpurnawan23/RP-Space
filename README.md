@@ -1,12 +1,9 @@
-<div style="
-    text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-    ">
+<p align="center">
     <img
         src="assets/img/rp-logo-2022_2025-circle.png"
-        style="height: 200px; width: auto;">
-</div>
+        alt="RP-logo"
+        height="200px" width="auto">
+</p>
 
 
 # **RP-Space**
