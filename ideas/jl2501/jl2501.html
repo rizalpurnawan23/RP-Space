@@ -41,7 +41,7 @@ title: RP-Space | Mini Game NT #1
             k + m > n \,.
         $$
         <b>Pertanyaan.</b>&nbsp;
-        Apakah benar bahwa salah satu dari $k$ atau $m$ memiliki nilai lebih besar dari $\frac{n}{2}$? Buktikan jawaban tersebut.
+        Apakah salah satu dari $k > \frac{n}{2}$ atau $m > \frac{n}{2}$ benar? Buktikan jawaban tersebut.
     </div>
     <p>
         <i style="color: gray;">
@@ -53,7 +53,7 @@ title: RP-Space | Mini Game NT #1
         Berikan jawaban kalian beserta argumen (atau pembuktian) sebagai dasar jawaban tersebut. <b>Tiga jawaban pertama</b> akan kami <i>post</i> disini beserta <i>review</i> argumen jawaban tersebut. Jawaban dan argumen yang benar juga akan kami <i>highlight</i>.
     </p>
     <p>
-        Jawaban bisa disampaikan melalui <a href="mailto:rizalpurnawan23@gmail.com">email</a>, <a href="https://www.linkedin.com/in/rizal-purnawan-xcvm23">LinkedIn</a> messaging, atau langsung dikirimkan ke kontak admin—buat yang kenal admin. Kami tunggu sampai <b>10 Juli 2025</b>.
+        Jawaban bisa disampaikan melalui <a href="mailto:rizalpurnawan23@gmail.com">email</a>, <a href="https://www.linkedin.com/in/rizal-purnawan-xcvm23">LinkedIn</a> messaging, atau langsung dikirimkan ke kontak admin—buat yang kenal admin. Kami tunggu sampai <b>10 Juli 2025 (Expired)</b>.
     </p>
     <div style="
         text-align: center;
@@ -63,72 +63,86 @@ title: RP-Space | Mini Game NT #1
         font-weight: bold;
         color: rgb(40, 215, 180);
         ">
-        Good Luck!
+        <!-- Good Luck! -->
+        Case Closed
     </div>
     
     <hr class="opening-bar">
 
-    <div style="margin-top: 3rem;">
-        <i>11/07/2025</i><br>
-        Setelah tiga hari <i>release</i>, kita hanya mendapat dua respon, tetapi tanpa pembuktian maupun argumen. Tepatnya, respon tersebut berasal dari <i>poll</i> yang kami buat di Instagram, dan kedua respon tersebut menyatakan bahwa jawaban dari <i>mini game</i> ini adalah "benar". Dan hal ini <b>memang benar</b>, jadi <b>selamat</b> kepada para responden dan kami ucapkan <b>terima kasih</b> telah berpartisipasi.<br>
-        Sekarang saatnya kita melihat pembuktian "benar" sebagai jawaban argumentatif dari <i>mini-game</i> di atas yang diberikan sebagai berikut.
-    </div>
-    <div class="mini-game" id="mg_proof">
-        <b><i>Pembuktian.</i></b>
-        Cara paling mudah untuk membuktikan <i>statement</i>
-        <blockquote id="statement">
-            untuk bilangan-bilangan positif $k, m, n \in \mathbb{N}$ yang memenuhi
-            $$
-                k + m > n \,,
-            $$
-            maka
-            $$
-                k > \frac{n}{2} \quad\text{atau}\quad m > \frac{n}{n}
-            $$
-        </blockquote>
-        adalah menggunakan "pembuktian dengan kontradiksi" (<a href="https://en.wikipedia.org/wiki/Proof_by_contradiction">proof by contradiction</a>). Jadi pertama, kita asumsikan bahwa <a href="#statement"><i>statement</i></a> tersebut tidak benar. Maka sebagai konsekuensi dari asumsi ini, $k$ dan $m$ keduanya bernilai kurang dari $\frac{n}{2}$, atau
-        $$
-            k, m \leq \frac{n}{2} \,,
-        $$
-        Tetapi dengan ini kita dapatkan
-        $$
-            k + m \leq \frac{n}{2} + \frac{n}{2} = n
-        $$
-        yang jelas kontradiksi dengan syarat $k, m$ dan $n$, yaitu $k + m > n$. Hal ini berarti asumsi kita salah. Kalau asumsi kita salah—yang mana asumsi kita menyatakan bahwa <a href="#statement"><i>statement</i> di atas</a> salah—maka kesimpulannya <a href="#statement"><i>statement</i> di atas</a> memang benar.
-        <div style="text-align: center; font-weight: bold;">QED</div>
-    </div>
-    <div style="
-        margin-top: 1rem;
-        margin-bottom: 3rem;
-        ">
-        Demikian akhir dari Mini-Game NT #1. Semoga pembuktian di atas—sekaligus <i>mini-game</i> ini—bermanfaat. Terimakasih.<br>
-        Untuk pembaca yang tertarik melanjutkan topik ini, bisa lanjut <i>scroll</i> ke bawah karena kita akan melakukan generalisasi dari kasus ini.
-    </div>
+    <details style="margin-top: 3rem;">
+        <summary style="
+            color: rgb(40, 215, 180);
+            font-size: larger;
+            font-weight: bold;
+            cursor: pointer;
+            ">
+            Lihat Pembuktian
+        </summary>
+        <!-- POST DEADLINE -->
+        <div>
+            <i>11/07/2025</i><br>
+            Setelah tiga hari <i>release</i>, kita hanya mendapat dua respon, tetapi tanpa pembuktian maupun argumen. Tepatnya, respon tersebut berasal dari <i>poll</i> yang kami buat di Instagram, dan kedua respon tersebut menyatakan bahwa jawaban dari <i>mini game</i> ini adalah "benar". Dan hal ini <b>memang benar</b>, jadi <b>selamat</b> kepada para responden dan kami ucapkan <b>terima kasih</b> telah berpartisipasi.<br>
+            Sekarang saatnya kita melihat pembuktian "benar" sebagai jawaban argumentatif dari <i>mini-game</i> di atas yang diberikan sebagai berikut.
+        </div>
 
-    <hr class="opening-bar">
-
-    <!-- GENERALISASI -->
-    <div class="mini-game" style="margin-top: 3rem;">
-        <h3 style="text-align: center;">
-            Generalisasi Sampai Penjumlahan Terhingga
-        </h3>
-        <p>
-            <a href="#statement"><i>Statement</i> dalam <i>mini-game</i></a> di atas sebenarnya bisa digeneralisasi hingga penjumlahan terhingga, yang diberikan sebagai berikut.
-            <blockquote id="proposisi">
-                <b>Proposisi.</b>
-                Diberikan bilangan-bilangan bulat positif $k_1, \dotsc, k_p, n \in \mathbb{N}$—di mana $p \in \mathbb{N}$—yang memenuhi
+        <!-- PROOF -->
+        <div class="mini-game" id="mg_proof">
+            <b><i>Pembuktian.</i></b>
+            Cara paling mudah untuk membuktikan <i>statement</i>
+            <blockquote id="statement">
+                untuk bilangan-bilangan positif $k, m, n \in \mathbb{N}$ yang memenuhi
                 $$
-                    \sum_{j = 1}^p k_j > n \,,
+                    k + m > n \,,
                 $$
-                maka juga akan kita dapati bahwa
+                maka
                 $$
-                    \exists \alpha \in \{1, \dotsc, p\} \,,\;
-                    k_\alpha > \frac{n}{p} \,.
+                    k > \frac{n}{2} \quad\text{atau}\quad m > \frac{n}{n}
                 $$
             </blockquote>
-            <a href="#proposisi">Proposisi</a> ini sebenarnya merupakan bentuk lebih umum (general) dari <a href="#statement"><i>statement</i></a> yang telah kita buktikan di atas. Tepatnya, <a href="#statement"><i>statement</i></a> di atas merupakan <a href="#proposisi">Proposisi</a> dengan $p = 2$. <a href="#proposisi">Proposisi</a> ini juga dapat dibuktikan dengan cara yang sama persis dengan <a href="#mg_proof">pembuktian <i>mini-game</i></a>.
-            <br><br>
-            Lalu, pertanyaan selanjutnya; apakah <a href="#proposisi">Proposisi</a> di atas dapat digeneralisasi lagi hingga penjumlahan tak terhingga?—Jawaban untuk ini, mungkin, untuk cerita di lain hari...
-        </p>
-    </div>
+            adalah menggunakan "pembuktian dengan kontradiksi" (<a href="https://en.wikipedia.org/wiki/Proof_by_contradiction">proof by contradiction</a>). Jadi pertama, kita asumsikan bahwa <a href="#statement"><i>statement</i></a> tersebut tidak benar. Maka sebagai konsekuensi dari asumsi ini, $k$ dan $m$ keduanya bernilai kurang dari $\frac{n}{2}$, atau
+            $$
+                k, m \leq \frac{n}{2} \,.
+            $$
+            Tetapi dengan ini kita dapatkan
+            $$
+                k + m \leq \frac{n}{2} + \frac{n}{2} = n
+            $$
+            yang jelas kontradiksi dengan syarat $k, m$ dan $n$, yaitu $k + m > n$. Hal ini berarti asumsi kita salah. Kalau asumsi kita salah—yang mana asumsi kita menyatakan bahwa <a href="#statement"><i>statement</i> di atas</a> salah—maka kesimpulannya <a href="#statement"><i>statement</i> di atas</a> memang benar.
+            <div style="text-align: center; font-weight: bold;">QED</div>
+        </div>
+        <div style="
+            margin-top: 1rem;
+            margin-bottom: 3rem;
+            ">
+            Demikian akhir dari Mini-Game NT #1. Semoga pembuktian di atas—sekaligus <i>mini-game</i> ini—bermanfaat. Terimakasih.<br>
+            Untuk pembaca yang tertarik melanjutkan topik ini, bisa lanjut <i>scroll</i> ke bawah karena kita akan melakukan generalisasi dari kasus ini.
+        </div>
+
+        <hr class="opening-bar">
+
+        <!-- GENERALISASI -->
+        <div class="mini-game" style="margin-top: 3rem;">
+            <h3 style="text-align: center;">
+                Generalisasi Sampai Penjumlahan Terhingga
+            </h3>
+            <p>
+                <a href="#statement"><i>Statement</i> dalam <i>mini-game</i></a> di atas sebenarnya bisa digeneralisasi hingga penjumlahan terhingga, yang diberikan sebagai berikut.
+                <blockquote id="proposisi">
+                    <b>Proposisi.</b>
+                    Diberikan bilangan-bilangan bulat positif $k_1, \dotsc, k_p, n \in \mathbb{N}$—di mana $p \in \mathbb{N}$—yang memenuhi
+                    $$
+                        \sum_{j = 1}^p k_j > n \,,
+                    $$
+                    maka juga akan kita dapati bahwa
+                    $$
+                        \exists \alpha \in \{1, \dotsc, p\} \,,\;
+                        k_\alpha > \frac{n}{p} \,.
+                    $$
+                </blockquote>
+                <a href="#proposisi">Proposisi</a> ini sebenarnya merupakan bentuk lebih umum (general) dari <a href="#statement"><i>statement</i></a> yang telah kita buktikan di atas. Tepatnya, <a href="#statement"><i>statement</i></a> di atas merupakan <a href="#proposisi">Proposisi</a> dengan $p = 2$. <a href="#proposisi">Proposisi</a> ini juga dapat dibuktikan dengan cara yang sama persis dengan <a href="#mg_proof">pembuktian <i>mini-game</i></a>.
+                <br><br>
+                Lalu, pertanyaan selanjutnya; apakah <a href="#proposisi">Proposisi</a> di atas dapat digeneralisasi lagi hingga penjumlahan tak terhingga?—Jawaban untuk ini, mungkin, untuk cerita di lain hari...
+            </p>
+        </div>
+    </details>
 </div>

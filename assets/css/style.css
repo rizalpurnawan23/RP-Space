@@ -57,8 +57,8 @@ nav a {
 
 nav a:hover {
     text-decoration: underline;
-    text-decoration-thickness: 0.2rem;
-    text-underline-offset: 0.4rem;
+    text-decoration-thickness: 0.14rem;
+    text-underline-offset: 0.2rem;
     color: black;
 }
 
@@ -116,7 +116,9 @@ img.home {
 
 .content {
     max-width: 80%;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    color: #333;
 }
 
 .feat_title {
@@ -129,13 +131,6 @@ img.home {
 
 .feat_title a {
     color: white;
-}
-
-.feat_title a:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 0.3rem;
-    text-underline-offset: 0.4rem;
-    color: black;
 }
 
 .quotation_pic {
@@ -272,7 +267,7 @@ img.home {
 }
 
 .article-author {
-    padding-top: 4%;
+    margin-top: 4%;
     font-size: medium;
 }
 
@@ -287,9 +282,6 @@ img.home {
 
 
 /* TABLE OF CONTENT: toc */
-.toc-section {
-    font-size: medium;
-}
 
 .toc-subsection {
     padding-left: 1rem;
@@ -327,6 +319,25 @@ img.home {
 .mini-game a:hover {
     color: black;
 }
+
+/* SIDEBAR TABLE OF CONTENT */
+.sidebar {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgb(50, 90, 125);
+}
+
+.article-content {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.side-toc {
+    margin-bottom: 4rem;
+}
+
 
 /* FOR DESKTOP */
 @media (min-width: 800px) {
@@ -371,8 +382,9 @@ img.home {
     }
 
     .content {
-        max-width: 60%;
-        margin: auto;
+        width: 60vw;
+        margin-left: 20vw;
+        margin-right: 20vw;
     }
 
     .quotation_pic {
@@ -435,5 +447,30 @@ img.home {
 
     .article-author img {
         max-width: 1.5%;
+    }
+
+    .side-toc {
+        display: flex;
+        margin-bottom: 4rem;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 1vh;
+        left: 0;
+        width: 17vw;
+        padding-left: 1vw;
+        padding-right: 2vw;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .article-content {
+        width: 60vw;
+        left: 20vw;
+    }
+
+    .right-bar {
+        width: 20vw;
     }
 }
