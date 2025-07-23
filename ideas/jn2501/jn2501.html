@@ -56,11 +56,25 @@ title: RP-Space | Idea JN2501
             Ultimately, the determination of the forces and moments at the support reaction of a TC factored by some load combinations can be reduced to simple matrix multiplications. This result will significantly ease the computational process of the entire system.
         </p>
     </div>
+</div>
 
-    
+<div class="side-toc">
     <!-- TABLE OF CONTENTS -->
-    <div>
-        <h2>Table of Contents</h2>
+    <details class="sidebar" style="margin-top: 1.2rem;">
+        <summary style="
+            font-size: large;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0.2rem;
+            background-color: rgb(40, 215, 180);
+            padding: 0.4rem;
+            color: white;
+            ">
+            Table of Contents
+        </summary>
+
+    <!-- <div class="sidebar"> -->
+        <!-- <h2>Table of Contents</h2> -->
         <!-- SECTIONS -->
         <div class="toc-section">Sections</div>
         <div class="toc-subsection">
@@ -151,544 +165,548 @@ title: RP-Space | Idea JN2501
                 Operators on Combinations
             </a>
         </div>
-    </div>
+    <!-- </div> -->
+    </details>
 
-
-    <!-- INRTODUCTION -->
-    <div>
-        <h2 class="counter" id="intro">Introduction</h2>
-        <p>
-            In my view, a <a href="https://en.wikipedia.org/wiki/Crane_(machine)#Tower">tower crane</a> (TC) structure can be modelled as a system of discrete body parts. This is consistent with how a tower crane is built as a modular structure which can be assembled and dissembled in parts. We typically obtained a specification for the TC in use from the provider, containing information including the weight, dimension and capacity of both the modular body parts and the entire system of the TC. With this condition, modelling the TC system using <a href="https://en.wikipedia.org/wiki/Linear_algebra">linear algebra</a>—specifically, a three-dimensional <a href="https://en.wikipedia.org/wiki/Euclidean_space">Euclidean space</a>—is the most sensible approach.
-        </p>
-        <p>
-            In computing the support reaction, we are also benefitted from the structural determinacy condition; the TC structure is basically a standing <a href="https://en.wikipedia.org/wiki/Cantilever">cantilever</a>. Therefore, we can directly implement the force and moment equilibrium principle (<a href="#du_bois">Du-Bois, 1902</a>) to find the reaction force and the reaction moment by summing the applied external forces and moments.
-        </p>
-        <p>
-            As a precaution for the readers, the foundational materials in linear algebra will not be covered. Interested readers may find it useful to visit (<a href="#strang">Strang, 2016</a>) and (<a href="#roman">Roman, 2005</a>). We also incorporate first order language (<a href="#bergmann">Bergmann et al., 2014</a>) for mathematical expressions. Therefore, we assume familiarity with this subject.
-        </p>
-    </div>
-
-
-    <!-- ALGEBRA OF TC -->
-    <div>
-        <h2 class="counter" id="algebra_tc">
-            The Algebra of a Tower Crane Structure and Its Properties
-        </h2>
-        
-        <!-- MODELLING -->
-        <h3 class="counter" id="atc:1-model">Modelling of the System</h3>
-        <p>
-            We will model the TC modular body parts as point vectors and the external force applied on them as force vectors. There are several types of forces applied, including the self-weights, wind forces, service loading forces, etc. We will distinguish the vectors spaces for the body parts and the types of forces. For generality, suppose there are $q$-types of force applicable at each point of the body part, for some $q \in \mathbb{N}$. Therefore, we need $q + 1$ vector spaces, which are given by $X, V_1, \dotsc, V_q \subseteq \mathbb{R}^3$. Note that $X$ is the vector space for the body parts, and $V_1, \dotsc, V_q$ for forces distinguished by their types. And the vector spaces $X, V_1, \dotsc, V_q$ may in fact be the same vector space $\mathbb{R}^3$. The designated distinction is made to represent their repsective functions.
-        </p>
-        <p>
-            Suppose we discretize the TC into $n$ body parts—for some $n \in \mathbb{N}$, represented by point vectors $x_0, x_1, \dotsc, x_n \in X$, where $x_0$ denotes the support of the TC. To simplify the treatment for force vectors, suppose the <a href="https://en.wikipedia.org/wiki/Direct_sum">direct sum</a> (<a href="#roman">Roman, 2005</a>) $\bigoplus_{k = 1}^q V_k$ such that each element in $\bigoplus_{k = 1}^q V_k$ is a $q$-tuple of force vectors. If
-        </p>
-        <p>
-            $$
-                \forall j \in \{1, \dotsc, q\} \,,\;
-                \pi_j: \bigoplus_{k = 1}^q V_k \to V_j
-            $$
-            is the canonical projection on $\bigoplus_{k = 1}^q V_k$, then we make the convention to represent each component vector in each element of $\bigoplus_{k = 1}^q V_k$ as given by
-            $$
-                \forall u \in \bigoplus_{k = 1}^q V_k \forall j \in \{1, \dotsc, q\} \,,\;
-                \pi_j(u) = u^j \in V_j \,.
-            $$
-            Therefore, in a complete form, we have
-            $$
-                \forall u \in \bigoplus_{k = 1}^q V_k \exists u^1 \in V_1 \dotsb \exists u^q \in V_q \,,\;
-                u = (u^1, \dotsc, u^q) \,.
-            $$
-            Note that $\bigoplus_{k = 1}^q V_k$ is a vector space on its own right over $\mathbb{R}$ (<a href="#roman">Roman, 2005</a>). Therefore, vector operation (scalar multiplication and vector addition) applies equally for $\bigoplus_{k = 1}^q V_k$ which suits our system. All the force vectors in our TC system can be given by a family $\{v_i\}_{i = 0}^n \subseteq \bigoplus_{k = 1}^q V_k$.
-        </p>
-
-        <!-- LOAD COMBINATIONS -->
-        <h3 class="counter" id="atc:2-lc">Load Combinations</h3>
-        <p>
-            Another important aspect to be considered is the load combinations. Similar to any structural analysis, we need to take into accounts loading scenarios, in this case, expressed by load combinations which may be regulated by a specific design code. Suppose we have $m$ load combinations, for some $m \in \mathbb{N}$. Our load combinations can be expressed succinctly by a matrix $C \in \mathbb{R}^{m \times q}$ given by
-            $$
-                C :=
-                \begin{bmatrix}
-                    c_1 \\ c_2 \\ \vdots \\ c_m
-                \end{bmatrix}
-                =
-                \begin{bmatrix}
-                    c_{11}      & c_{12}        & \dotsb    & c_{1q} \\
-                    c_{21}      & c_{22}        & \dotsb    & c_{2q} \\
-                    \vdots      & \vdots        & \ddots    & \vdots \\
-                    c_{m1}      & c_{m2}        & \dotsb    & c_{mq} \\
-                \end{bmatrix}
-                \;.
-            $$
-            We will present our invented linear operator to sythesize the load combinations into our model in the next subsection.
-        </p>
-
-        <!-- LC BOUNDED LINEAR OPERATOR -->
-        <h3 class="counter" id="atc:3-lc_blo">Load Combinations as Bounded Linear Operators</h3>
-        <p>
-            To accomodate the load combinations into our system, we introduce a map $\diamond_q: \mathbb{R}^q \times \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ which is defined by
-            $$
-                \forall a \in \mathbb{R}^q \forall u \in \bigoplus_{k = 1}^q V_k \,,\;
-                a \diamond_q u := \sum_{k = 1}^q a_k u^k \,.
-            $$
-            In other words, $\diamond_q$ defines a linear combination of vectors in an element of $\bigoplus_{k = 1}^q V_k$. In fact, $\diamond_q$ is a <a href="https://en.wikipedia.org/wiki/Bilinear_map">bilinear map</a> as shown in the following theorem.
-        </p>
-        <!-- THEOREM -->
-        <div class="thm">
-            <b id="thm:bilinear_diamond">Theorem</b>
-            (Bilinearity of $\diamond_q$).&NonBreakingSpace;
-            <i>
-                The map $\diamond_q: \diamond_q: \mathbb{R}^q \times \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ is a bilinear map.
-                <br>
-                Proof.&NonBreakingSpace;
-            </i>
-            Let $\alpha \in \mathbb{R}$, $a, b \in \mathbb{R}^q$ and $t, u \in \bigoplus_{k = 1}^q V_k$. Let us express $a$ and $b$ in terms of their entries by
-            $$
-                a = (a_1, \dotsc, a_q) \,,\; b = (b_1, \dotsc, b_q) \,.
-            $$
-            By the linearity of vector spaces (<a href="#roman">Roman, 2005</a>), we obtain
-            $$
-                \begin{split}
-                    \alpha a \diamond_q u
-                    &= \sum_{k = 1}^q (\alpha a_k) u^k
-                    = \sum_{k = 1}^q \alpha (a_k u^k) \\
-                    &= \alpha \sum_{k = 1}^q a_k u^k
-                    = \alpha (a \diamond u) \\
-                    &= \sum_{k = 1}^q a_k (\alpha u^k)
-                    = \sum_{k = 1}^q a_k (\alpha u^k)
-                    = a \diamond \alpha u \,,
-                \end{split}
-            $$
-            showing that the scalar linearity applies to $\diamond_q$. And we also obtain
-            $$
-                \begin{split}
-                (a + b) \diamond_q u
-                &= \sum_{k = 1}^q (a_k + b_k) u^k \\
-                &= \sum_{k = 1}^q a_k u^k + b_k u^k \\
-                &= \left( \sum_{k = 1}^q a_k u^k \right) + \left( \sum_{k = 1}^q b_k u^k \right) \\
-                &= (a \diamond_q u) + (b \diamond_q u)
-                \end{split}
-            $$
-            and
-            $$
-                \begin{split}
-                a \diamond (t + u)
-                &= \sum_{k = 1}^q a_k (t^k + u^k) \\
-                &= \sum_{k = 1}^q a_k t^k + a_k + u^q \\
-                &= \left( \sum_{k = 1}^q a_k t^k \right) + \left( \sum_{k = 1}^q a_k u^k \right) \\
-                &= (a \diamond_q t) + (a \diamond_q u)
-                \end{split}
-            $$
-            which show the additive linearity of $\diamond_q$ in both components. Hence, $\diamond_q$ is a bilinear map.
-            <div style="text-align: center; font-weight: bold;">
-                Q E D
-            </div>
+    <div class="article-content">
+        <!-- INRTODUCTION -->
+        <div>
+            <h2 class="counter" id="intro">Introduction</h2>
+            <p>
+                In my view, a <a href="https://en.wikipedia.org/wiki/Crane_(machine)#Tower">tower crane</a> (TC) structure can be modelled as a system of discrete body parts. This is consistent with how a tower crane is built as a modular structure which can be assembled and dissembled in parts. We typically obtained a specification for the TC in use from the provider, containing information including the weight, dimension and capacity of both the modular body parts and the entire system of the TC. With this condition, modelling the TC system using <a href="https://en.wikipedia.org/wiki/Linear_algebra">linear algebra</a>—specifically, a three-dimensional <a href="https://en.wikipedia.org/wiki/Euclidean_space">Euclidean space</a>—is the most sensible approach.
+            </p>
+            <p>
+                In computing the support reaction, we are also benefitted from the structural determinacy condition; the TC structure is basically a standing <a href="https://en.wikipedia.org/wiki/Cantilever">cantilever</a>. Therefore, we can directly implement the force and moment equilibrium principle (<a href="#du_bois">Du-Bois, 1902</a>) to find the reaction force and the reaction moment by summing the applied external forces and moments.
+            </p>
+            <p>
+                As a precaution for the readers, the foundational materials in linear algebra will not be covered. Interested readers may find it useful to visit (<a href="#strang">Strang, 2016</a>) and (<a href="#roman">Roman, 2005</a>). We also incorporate first order language (<a href="#bergmann">Bergmann et al., 2014</a>) for mathematical expressions. Therefore, we assume familiarity with this subject.
+            </p>
         </div>
 
-        <p>
-            With $\diamond_q$, we can assign load combinations; for  instance, for the $j$-th combination on forces of the $i$-th body part, the expression $c_j \diamond_q v_i$ is the sum of factored forces at the $i$-th body part where $c_j \in \mathbb{R}^q$ is the $j$-th load combination and $v_i \in \bigoplus_{k = 1}^q V_k$ refers to force vectors at the $i$-th body part, for any $i \in \{1, \dotsc, n\}$ and $j \in \{1, \dotsc, m\}$. Equivalently, we can also introduce an operator
-            $$
-                \forall a \in \mathbb{R}^q \,,\;
-                K_a: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3
-            $$
-            which is defined by
-            $$
-                \forall a \in \mathbb{R}^q \forall u \in \bigoplus_{k = 1}^q V_k \,,\;
-                K_a(u) := a \diamond_q u \,.
-            $$
-            And we call the operators $K_{c_1}, \dotsc, K_{c_m}: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ the <b><i>combination operators</i></b>. It is not difficult to show that $K_{c_1}, \dotsc, K_{c_m}: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ are <a href="https://en.wikipedia.org/wiki/Bounded_operator">bounded linear operators</a> (<a href="#kreyszig_fa">Kreyszig, 1978</a>), as presented in a more general fashion in the following theorem.
-        </p>
-        <!-- THEOREM -->
-        <div class="thm">
-            <b id="thm:comb_operators">Theorem</b>
-            (Combination Operators).&NonBreakingSpace;
-            <i>
-                Let $a \in \mathbb{R}^q$. A map
+
+        <!-- ALGEBRA OF TC -->
+        <div>
+            <h2 class="counter" id="algebra_tc">
+                The Algebra of a Tower Crane Structure and Its Properties
+            </h2>
+            
+            <!-- MODELLING -->
+            <h3 class="counter" id="atc:1-model">Modelling of the System</h3>
+            <p>
+                We will model the TC modular body parts as point vectors and the external force applied on them as force vectors. There are several types of forces applied, including the self-weights, wind forces, service loading forces, etc. We will distinguish the vectors spaces for the body parts and the types of forces. For generality, suppose there are $q$-types of force applicable at each point of the body part, for some $q \in \mathbb{N}$. Therefore, we need $q + 1$ vector spaces, which are given by $X, V_1, \dotsc, V_q \subseteq \mathbb{R}^3$. Note that $X$ is the vector space for the body parts, and $V_1, \dotsc, V_q$ for forces distinguished by their types. And the vector spaces $X, V_1, \dotsc, V_q$ may in fact be the same vector space $\mathbb{R}^3$. The designated distinction is made to represent their repsective functions.
+            </p>
+            <p>
+                Suppose we discretize the TC into $n$ body parts—for some $n \in \mathbb{N}$, represented by point vectors $x_0, x_1, \dotsc, x_n \in X$, where $x_0$ denotes the support of the TC. To simplify the treatment for force vectors, suppose the <a href="https://en.wikipedia.org/wiki/Direct_sum">direct sum</a> (<a href="#roman">Roman, 2005</a>) $\bigoplus_{k = 1}^q V_k$ such that each element in $\bigoplus_{k = 1}^q V_k$ is a $q$-tuple of force vectors. If
+            </p>
+            <p>
                 $$
+                    \forall j \in \{1, \dotsc, q\} \,,\;
+                    \pi_j: \bigoplus_{k = 1}^q V_k \to V_j
+                $$
+                is the canonical projection on $\bigoplus_{k = 1}^q V_k$, then we make the convention to represent each component vector in each element of $\bigoplus_{k = 1}^q V_k$ as given by
+                $$
+                    \forall u \in \bigoplus_{k = 1}^q V_k \forall j \in \{1, \dotsc, q\} \,,\;
+                    \pi_j(u) = u^j \in V_j \,.
+                $$
+                Therefore, in a complete form, we have
+                $$
+                    \forall u \in \bigoplus_{k = 1}^q V_k \exists u^1 \in V_1 \dotsb \exists u^q \in V_q \,,\;
+                    u = (u^1, \dotsc, u^q) \,.
+                $$
+                Note that $\bigoplus_{k = 1}^q V_k$ is a vector space on its own right over $\mathbb{R}$ (<a href="#roman">Roman, 2005</a>). Therefore, vector operation (scalar multiplication and vector addition) applies equally for $\bigoplus_{k = 1}^q V_k$ which suits our system. All the force vectors in our TC system can be given by a family $\{v_i\}_{i = 0}^n \subseteq \bigoplus_{k = 1}^q V_k$.
+            </p>
+
+            <!-- LOAD COMBINATIONS -->
+            <h3 class="counter" id="atc:2-lc">Load Combinations</h3>
+            <p>
+                Another important aspect to be considered is the load combinations. Similar to any structural analysis, we need to take into accounts loading scenarios, in this case, expressed by load combinations which may be regulated by a specific design code. Suppose we have $m$ load combinations, for some $m \in \mathbb{N}$. Our load combinations can be expressed succinctly by a matrix $C \in \mathbb{R}^{m \times q}$ given by
+                $$
+                    C :=
+                    \begin{bmatrix}
+                        c_1 \\ c_2 \\ \vdots \\ c_m
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                        c_{11}      & c_{12}        & \dotsb    & c_{1q} \\
+                        c_{21}      & c_{22}        & \dotsb    & c_{2q} \\
+                        \vdots      & \vdots        & \ddots    & \vdots \\
+                        c_{m1}      & c_{m2}        & \dotsb    & c_{mq} \\
+                    \end{bmatrix}
+                    \;.
+                $$
+                We will present our invented linear operator to sythesize the load combinations into our model in the next subsection.
+            </p>
+
+            <!-- LC BOUNDED LINEAR OPERATOR -->
+            <h3 class="counter" id="atc:3-lc_blo">Load Combinations as Bounded Linear Operators</h3>
+            <p>
+                To accomodate the load combinations into our system, we introduce a map $\diamond_q: \mathbb{R}^q \times \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ which is defined by
+                $$
+                    \forall a \in \mathbb{R}^q \forall u \in \bigoplus_{k = 1}^q V_k \,,\;
+                    a \diamond_q u := \sum_{k = 1}^q a_k u^k \,.
+                $$
+                In other words, $\diamond_q$ defines a linear combination of vectors in an element of $\bigoplus_{k = 1}^q V_k$. In fact, $\diamond_q$ is a <a href="https://en.wikipedia.org/wiki/Bilinear_map">bilinear map</a> as shown in the following theorem.
+            </p>
+            <!-- THEOREM -->
+            <div class="thm">
+                <b id="thm:bilinear_diamond">Theorem</b>
+                (Bilinearity of $\diamond_q$).&NonBreakingSpace;
+                <i>
+                    The map $\diamond_q: \diamond_q: \mathbb{R}^q \times \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ is a bilinear map.
+                    <br>
+                    Proof.&NonBreakingSpace;
+                </i>
+                Let $\alpha \in \mathbb{R}$, $a, b \in \mathbb{R}^q$ and $t, u \in \bigoplus_{k = 1}^q V_k$. Let us express $a$ and $b$ in terms of their entries by
+                $$
+                    a = (a_1, \dotsc, a_q) \,,\; b = (b_1, \dotsc, b_q) \,.
+                $$
+                By the linearity of vector spaces (<a href="#roman">Roman, 2005</a>), we obtain
+                $$
+                    \begin{split}
+                        \alpha a \diamond_q u
+                        &= \sum_{k = 1}^q (\alpha a_k) u^k
+                        = \sum_{k = 1}^q \alpha (a_k u^k) \\
+                        &= \alpha \sum_{k = 1}^q a_k u^k
+                        = \alpha (a \diamond u) \\
+                        &= \sum_{k = 1}^q a_k (\alpha u^k)
+                        = \sum_{k = 1}^q a_k (\alpha u^k)
+                        = a \diamond \alpha u \,,
+                    \end{split}
+                $$
+                showing that the scalar linearity applies to $\diamond_q$. And we also obtain
+                $$
+                    \begin{split}
+                    (a + b) \diamond_q u
+                    &= \sum_{k = 1}^q (a_k + b_k) u^k \\
+                    &= \sum_{k = 1}^q a_k u^k + b_k u^k \\
+                    &= \left( \sum_{k = 1}^q a_k u^k \right) + \left( \sum_{k = 1}^q b_k u^k \right) \\
+                    &= (a \diamond_q u) + (b \diamond_q u)
+                    \end{split}
+                $$
+                and
+                $$
+                    \begin{split}
+                    a \diamond (t + u)
+                    &= \sum_{k = 1}^q a_k (t^k + u^k) \\
+                    &= \sum_{k = 1}^q a_k t^k + a_k + u^q \\
+                    &= \left( \sum_{k = 1}^q a_k t^k \right) + \left( \sum_{k = 1}^q a_k u^k \right) \\
+                    &= (a \diamond_q t) + (a \diamond_q u)
+                    \end{split}
+                $$
+                which show the additive linearity of $\diamond_q$ in both components. Hence, $\diamond_q$ is a bilinear map.
+                <div style="text-align: center; font-weight: bold;">
+                    Q E D
+                </div>
+            </div>
+
+            <p>
+                With $\diamond_q$, we can assign load combinations; for  instance, for the $j$-th combination on forces of the $i$-th body part, the expression $c_j \diamond_q v_i$ is the sum of factored forces at the $i$-th body part where $c_j \in \mathbb{R}^q$ is the $j$-th load combination and $v_i \in \bigoplus_{k = 1}^q V_k$ refers to force vectors at the $i$-th body part, for any $i \in \{1, \dotsc, n\}$ and $j \in \{1, \dotsc, m\}$. Equivalently, we can also introduce an operator
+                $$
+                    \forall a \in \mathbb{R}^q \,,\;
                     K_a: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3
                 $$
-                defined by
+                which is defined by
                 $$
-                    \forall u \in \bigoplus_{k = 1}^q V_k \,,\;
-                    K_a(u) := a \diamond_q u
+                    \forall a \in \mathbb{R}^q \forall u \in \bigoplus_{k = 1}^q V_k \,,\;
+                    K_a(u) := a \diamond_q u \,.
                 $$
-                is a bounded linear operator, i.e., $K_a \in \mathcal{B}(\bigoplus_{k = 1}^q V_k, \mathbb{R}^3)$.
-                <br>
-                Proof.&NonBreakingSpace;
-            </i>
-            Let $\alpha, \beta \in \mathbb{R}$ and $t, u \in \bigoplus_{k = 1}^q V_k$. By the <a href="#thm:bilinear_diamond">bilinearity of $\diamond_q$</a>, we obtain
-            $$
-                \begin{split}
-                K_a(\alpha t + \beta u)
-                &= a \diamond_q (\alpha t + \beta u) \\
-                &= \alpha (a \diamond_q t) + \beta (a \diamond_q u) \\
-                &= \alpha K_a(t) + \beta K_a(u) \,,
-                \end{split}
-            $$
-            which shows that $K_a$ is a linear operator (<a href="#roman">Roman, 2005</a>; <a href="#kreyszig_fa">Kreyszig, 1978</a>). And since every linear operator on a finite dimensional vector space is bounded (<a href="#kreyszig_fa">Kreyszig, 1978</a>), hence, $K_a \in \mathcal{B}(\bigoplus_{k = 1}^q V_k, \mathbb{R}^3)$, i.e., $K_a$ is a bounded linear operator.
-            <div style="text-align: center; font-weight: bold;">
-                Q E D
+                And we call the operators $K_{c_1}, \dotsc, K_{c_m}: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ the <b><i>combination operators</i></b>. It is not difficult to show that $K_{c_1}, \dotsc, K_{c_m}: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3$ are <a href="https://en.wikipedia.org/wiki/Bounded_operator">bounded linear operators</a> (<a href="#kreyszig_fa">Kreyszig, 1978</a>), as presented in a more general fashion in the following theorem.
+            </p>
+            <!-- THEOREM -->
+            <div class="thm">
+                <b id="thm:comb_operators">Theorem</b>
+                (Combination Operators).&NonBreakingSpace;
+                <i>
+                    Let $a \in \mathbb{R}^q$. A map
+                    $$
+                        K_a: \bigoplus_{k = 1}^q V_k \to \mathbb{R}^3
+                    $$
+                    defined by
+                    $$
+                        \forall u \in \bigoplus_{k = 1}^q V_k \,,\;
+                        K_a(u) := a \diamond_q u
+                    $$
+                    is a bounded linear operator, i.e., $K_a \in \mathcal{B}(\bigoplus_{k = 1}^q V_k, \mathbb{R}^3)$.
+                    <br>
+                    Proof.&NonBreakingSpace;
+                </i>
+                Let $\alpha, \beta \in \mathbb{R}$ and $t, u \in \bigoplus_{k = 1}^q V_k$. By the <a href="#thm:bilinear_diamond">bilinearity of $\diamond_q$</a>, we obtain
+                $$
+                    \begin{split}
+                    K_a(\alpha t + \beta u)
+                    &= a \diamond_q (\alpha t + \beta u) \\
+                    &= \alpha (a \diamond_q t) + \beta (a \diamond_q u) \\
+                    &= \alpha K_a(t) + \beta K_a(u) \,,
+                    \end{split}
+                $$
+                which shows that $K_a$ is a linear operator (<a href="#roman">Roman, 2005</a>; <a href="#kreyszig_fa">Kreyszig, 1978</a>). And since every linear operator on a finite dimensional vector space is bounded (<a href="#kreyszig_fa">Kreyszig, 1978</a>), hence, $K_a \in \mathcal{B}(\bigoplus_{k = 1}^q V_k, \mathbb{R}^3)$, i.e., $K_a$ is a bounded linear operator.
+                <div style="text-align: center; font-weight: bold;">
+                    Q E D
+                </div>
             </div>
-        </div>
 
-        <!-- FORCE REACTION OF TC -->
-        <h3 class="counter" id="atc:4-force_tc">Force Reaction of TC</h3>
-        <p>
-            Follows from the force equilibrium principle (<a href="#du_bois">Du-Bois, 1902</a>), the forces at the support reaction factored by the load combinations are given by a matrix $F \in \mathbb{R}^{m \times 3}$ via a matrix-like multiplication
-            $$
-                F
-                = C v
-                = \begin{bmatrix}
-                    c_{11}      & c_{12}    & \dotsb    & c_{1q} \\
-                    c_{21}      & c_{22}    & \dotsb    & c_{2q} \\
-                    \vdots      & \vdots    & \ddots    & \vdots \\
-                    c_{m1}      & c_{m2}    & \dotsb    & c_{mq} \\
-                \end{bmatrix}
-                \begin{bmatrix}
-                    v^1 \\ v^2 \\ \vdots \\ v^q
-                \end{bmatrix}
-                := \begin{bmatrix}
-                    c_1 \diamond_q v \\ c_2 \diamond_q v \\ \vdots \\ c_m \diamond_q v
-                \end{bmatrix}
-                = \begin{bmatrix}
-                    K_{c_1}(v) \\ K_{c_2}(v) \\ \vdots \\ K_{c_m}(v)
-                \end{bmatrix}
-            $$
-            where
-            $$
-                v := \sum_{i = 1}^n v_i
-            $$
-            and we express $v^1, \dotsc, v^q$ as row vectors. Note that each row vector in $F$ is the force at the support reaction factored by a load combination. And follows from the <a href="#thm:comb_operators">combination operators theorem</a>, we obtain
-            $$
-                \forall j \in \{1, \dotsc, m\} \,,\;
-                K_{c_j}(v)
-                = K_{c_j} \left( \sum_{i = 1}^n v_i \right)
-                = \sum_{i = 1}^n K_{c_j}(v_i) \,,
-            $$
-            which is consistent with how one calculates the forces in a structure by first applying a load combination on assigned external loads.
-        </p>
-
-        <!-- EXTENSION TO CROSS PRODUCT -->
-        <h3 class="counter" id="atc:5-ext_cross_prod">
-            An Extension to Cross Product
-        </h3>
-        <p>
-            Now to describe torque (or moment), we need to introduce another map $\overline{\boxtimes}: X \times \bigoplus_{k = 1}^q V_k \to \bigoplus_{k = 1}^q V_k$ which is defined by
-            $$
-                \forall x \in X \forall u \in \bigoplus_{k = 1}^q V_k \,,\;
-                x \overline{\boxtimes} u := (x \times u^1, \dotsc, x \times u^q)
-            $$
-            where $\times$ in the expression above is a cross product. The map $\overline{\boxtimes}$ is also a bilinear map, as shown in the following theorem.
-        </p>
-        <!-- THEOREM -->
-        <div class="thm">
-            <b id="thm:bilinear_boxtimes">Theorem</b>
-            (Bilinearity of $\overline{\boxtimes}$). &NonBreakingSpace;
-            <i>
-                The map $\overline{\boxtimes}: X \times \bigoplus_{k = 1}^q V_k \to \bigoplus_{k = 1}^q V_k$ is a bilinear map.
-                <br>
-                Proof. &NonBreakingSpace;
-            </i>
-            Note that the classical cross product $\times: \mathbb{R}^3 \times \mathbb{R}^3 \to \mathbb{R}^3$ is a bilinear map. Now let $\alpha \in \mathbb{R}$, $x, y \in X$ and $t, u \in \bigoplus_{k = 1}^q V_k$. And we obtain
-            $$
-                \begin{split}
-                    \alpha x \overline{\boxtimes} u
-                    &= (\alpha x \times u^1, \dotsc, \alpha x \times u^q) \\
-                    &= \alpha (x \times u^1, \dotsc, x \times u^q) \\
-                    &= \alpha (x \overline{\boxtimes} u) \\
-                    &= (x \times \alpha u^1, \dotsc, x \times \alpha u^q) \\
-                    &= x \overline{\boxtimes} \alpha u \,,
-                \end{split}
-            $$
-            showing the scalar linearity of $\overline{\boxtimes}$. And we also obtain
-            $$
-                \begin{split}
-                (x + y) \overline{\boxtimes} u
-                &= ((x + y) \times u^1, \dotsc, (x + y) \times u^q) \\
-                &= (x \times u^1 + y \times u^1, \dotsc, x \times u^q + y \times u^q) \\
-                &= x \overline{\boxtimes} u + y \overline{\boxtimes} u
-                \end{split}
-            $$
-            and
-            $$
-                \begin{split}
-                x \overline{\boxtimes} (t + u)
-                &= (x \times (t^1 + u^1), \dotsc, x \times (t^q + u^q)) \\
-                &= (x \times t^1 + x \times u^1, \dotsc, x \times t^q + x \times u^q) \\
-                &= x \overline{\boxtimes} t + x \overline{\boxtimes} u
-                \end{split}
-            $$
-            which show the additive linearity of $\overline{\boxtimes}$ in both components. Hence, $\overline{\boxtimes}$ is a bilinear map.
-            <div style="text-align: center; font-weight: bold;">
-                Q E D
-            </div>
-        </div>
-        <p>
-            We can also introduce the counterpart of $\overline{\boxtimes}$ in a map $\underline{\boxtimes}: \bigoplus_{k = 1}^q V_k \times X \to \bigoplus_{k = 1}^q V_k$ defined by
-            $$
-                \forall u \in \bigoplus_{k = 1}^q V_k \forall x \in X \,,\;
-                u \underline{\boxtimes} x := (u^1 \times x, \dotsc, u^q \times x) \,.
-            $$
-            Follows from the antisymmetric property of cross product, the map $\underline{\boxtimes}$ is the antisymmetric counterpart of $\overline{\boxtimes}$, as shown by
-            $$
-                \begin{split}
-                \forall u \in \bigoplus_{k = 1}^q V_k \forall x \in X \,,\;
-                x \overline{\boxtimes} u
-                &= (x \times u^1, \dotsc, x \times u^q) \\
-                &= (-u^1 \times x, \dotsc, -u^k \times x) \\
-                &= -(u \overline{\boxtimes} x) \,.
-                \end{split}
-            $$
-            And from this property, it can be shown that $\underline{\boxtimes}$ is also a bilinear map from the bilinearity of $\overline{\boxtimes}$. These peoperties make $\overline{\boxtimes}$ and $\underline{\boxtimes}$ the natural extension to $\times$.
-        </p>
-        <p>
-            Let us now investigate composition of a combinatio operator with $\overline{\boxtimes}$ in the following theorem.
-        </p>
-
-        <!-- THEOREM -->
-        <div class="thm">
-            <b id="thm:comb_boxtimes">Theorem</b>
-            ($\overline{\boxtimes}$-Combination Composition).
-            &NonBreakingSpace;
-            <i>
-                The composition equivalence
+            <!-- FORCE REACTION OF TC -->
+            <h3 class="counter" id="atc:4-force_tc">Force Reaction of TC</h3>
+            <p>
+                Follows from the force equilibrium principle (<a href="#du_bois">Du-Bois, 1902</a>), the forces at the support reaction factored by the load combinations are given by a matrix $F \in \mathbb{R}^{m \times 3}$ via a matrix-like multiplication
                 $$
-                    \forall a \in \mathbb{R}^q \forall x \in X \,,\;
+                    F
+                    = C v
+                    = \begin{bmatrix}
+                        c_{11}      & c_{12}    & \dotsb    & c_{1q} \\
+                        c_{21}      & c_{22}    & \dotsb    & c_{2q} \\
+                        \vdots      & \vdots    & \ddots    & \vdots \\
+                        c_{m1}      & c_{m2}    & \dotsb    & c_{mq} \\
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                        v^1 \\ v^2 \\ \vdots \\ v^q
+                    \end{bmatrix}
+                    := \begin{bmatrix}
+                        c_1 \diamond_q v \\ c_2 \diamond_q v \\ \vdots \\ c_m \diamond_q v
+                    \end{bmatrix}
+                    = \begin{bmatrix}
+                        K_{c_1}(v) \\ K_{c_2}(v) \\ \vdots \\ K_{c_m}(v)
+                    \end{bmatrix}
+                $$
+                where
+                $$
+                    v := \sum_{i = 1}^n v_i
+                $$
+                and we express $v^1, \dotsc, v^q$ as row vectors. Note that each row vector in $F$ is the force at the support reaction factored by a load combination. And follows from the <a href="#thm:comb_operators">combination operators theorem</a>, we obtain
+                $$
+                    \forall j \in \{1, \dotsc, m\} \,,\;
+                    K_{c_j}(v)
+                    = K_{c_j} \left( \sum_{i = 1}^n v_i \right)
+                    = \sum_{i = 1}^n K_{c_j}(v_i) \,,
+                $$
+                which is consistent with how one calculates the forces in a structure by first applying a load combination on assigned external loads.
+            </p>
+
+            <!-- EXTENSION TO CROSS PRODUCT -->
+            <h3 class="counter" id="atc:5-ext_cross_prod">
+                An Extension to Cross Product
+            </h3>
+            <p>
+                Now to describe torque (or moment), we need to introduce another map $\overline{\boxtimes}: X \times \bigoplus_{k = 1}^q V_k \to \bigoplus_{k = 1}^q V_k$ which is defined by
+                $$
+                    \forall x \in X \forall u \in \bigoplus_{k = 1}^q V_k \,,\;
+                    x \overline{\boxtimes} u := (x \times u^1, \dotsc, x \times u^q)
+                $$
+                where $\times$ in the expression above is a cross product. The map $\overline{\boxtimes}$ is also a bilinear map, as shown in the following theorem.
+            </p>
+            <!-- THEOREM -->
+            <div class="thm">
+                <b id="thm:bilinear_boxtimes">Theorem</b>
+                (Bilinearity of $\overline{\boxtimes}$). &NonBreakingSpace;
+                <i>
+                    The map $\overline{\boxtimes}: X \times \bigoplus_{k = 1}^q V_k \to \bigoplus_{k = 1}^q V_k$ is a bilinear map.
+                    <br>
+                    Proof. &NonBreakingSpace;
+                </i>
+                Note that the classical cross product $\times: \mathbb{R}^3 \times \mathbb{R}^3 \to \mathbb{R}^3$ is a bilinear map. Now let $\alpha \in \mathbb{R}$, $x, y \in X$ and $t, u \in \bigoplus_{k = 1}^q V_k$. And we obtain
+                $$
+                    \begin{split}
+                        \alpha x \overline{\boxtimes} u
+                        &= (\alpha x \times u^1, \dotsc, \alpha x \times u^q) \\
+                        &= \alpha (x \times u^1, \dotsc, x \times u^q) \\
+                        &= \alpha (x \overline{\boxtimes} u) \\
+                        &= (x \times \alpha u^1, \dotsc, x \times \alpha u^q) \\
+                        &= x \overline{\boxtimes} \alpha u \,,
+                    \end{split}
+                $$
+                showing the scalar linearity of $\overline{\boxtimes}$. And we also obtain
+                $$
+                    \begin{split}
+                    (x + y) \overline{\boxtimes} u
+                    &= ((x + y) \times u^1, \dotsc, (x + y) \times u^q) \\
+                    &= (x \times u^1 + y \times u^1, \dotsc, x \times u^q + y \times u^q) \\
+                    &= x \overline{\boxtimes} u + y \overline{\boxtimes} u
+                    \end{split}
+                $$
+                and
+                $$
+                    \begin{split}
+                    x \overline{\boxtimes} (t + u)
+                    &= (x \times (t^1 + u^1), \dotsc, x \times (t^q + u^q)) \\
+                    &= (x \times t^1 + x \times u^1, \dotsc, x \times t^q + x \times u^q) \\
+                    &= x \overline{\boxtimes} t + x \overline{\boxtimes} u
+                    \end{split}
+                $$
+                which show the additive linearity of $\overline{\boxtimes}$ in both components. Hence, $\overline{\boxtimes}$ is a bilinear map.
+                <div style="text-align: center; font-weight: bold;">
+                    Q E D
+                </div>
+            </div>
+            <p>
+                We can also introduce the counterpart of $\overline{\boxtimes}$ in a map $\underline{\boxtimes}: \bigoplus_{k = 1}^q V_k \times X \to \bigoplus_{k = 1}^q V_k$ defined by
+                $$
+                    \forall u \in \bigoplus_{k = 1}^q V_k \forall x \in X \,,\;
+                    u \underline{\boxtimes} x := (u^1 \times x, \dotsc, u^q \times x) \,.
+                $$
+                Follows from the antisymmetric property of cross product, the map $\underline{\boxtimes}$ is the antisymmetric counterpart of $\overline{\boxtimes}$, as shown by
+                $$
+                    \begin{split}
+                    \forall u \in \bigoplus_{k = 1}^q V_k \forall x \in X \,,\;
+                    x \overline{\boxtimes} u
+                    &= (x \times u^1, \dotsc, x \times u^q) \\
+                    &= (-u^1 \times x, \dotsc, -u^k \times x) \\
+                    &= -(u \overline{\boxtimes} x) \,.
+                    \end{split}
+                $$
+                And from this property, it can be shown that $\underline{\boxtimes}$ is also a bilinear map from the bilinearity of $\overline{\boxtimes}$. These peoperties make $\overline{\boxtimes}$ and $\underline{\boxtimes}$ the natural extension to $\times$.
+            </p>
+            <p>
+                Let us now investigate composition of a combinatio operator with $\overline{\boxtimes}$ in the following theorem.
+            </p>
+
+            <!-- THEOREM -->
+            <div class="thm">
+                <b id="thm:comb_boxtimes">Theorem</b>
+                ($\overline{\boxtimes}$-Combination Composition).
+                &NonBreakingSpace;
+                <i>
+                    The composition equivalence
+                    $$
+                        \forall a \in \mathbb{R}^q \forall x \in X \,,\;
+                        K_a \circ (x \overline{\boxtimes} \cdot)
+                        = (x \times \cdot) \circ K_a
+                        : \bigoplus_{k = 1}^q \to \mathbb{R}^3
+                    $$
+                    holds.
+                    <br>
+                    Proof. &NonBreakingSpace;
+                </i>
+                Let $a \in \mathbb{R}^q$, $x \in X$ and $u \in \bigoplus_{k = 1}^q V_k$. Follows from the bilinearity of cross product, we obtain
+                $$
+                    \begin{split}
+                    K_a(x \overline{\boxtimes} u)
+                    &= a \diamond_q (x \overline{\boxtimes} u) \\
+                    &= \sum_{k = 1}^q a_k (x \times u^k) \\
+                    &= \sum_{k = 1}^q x \times a_k u^k \\
+                    &= x \times \sum_{k = 1}^q a_k u^k \\
+                    &= x \times K_a(u)
+                    \end{split}
+                $$
+                which shows that
+                $$
                     K_a \circ (x \overline{\boxtimes} \cdot)
                     = (x \times \cdot) \circ K_a
                     : \bigoplus_{k = 1}^q \to \mathbb{R}^3
                 $$
                 holds.
-                <br>
-                Proof. &NonBreakingSpace;
-            </i>
-            Let $a \in \mathbb{R}^q$, $x \in X$ and $u \in \bigoplus_{k = 1}^q V_k$. Follows from the bilinearity of cross product, we obtain
-            $$
-                \begin{split}
-                K_a(x \overline{\boxtimes} u)
-                &= a \diamond_q (x \overline{\boxtimes} u) \\
-                &= \sum_{k = 1}^q a_k (x \times u^k) \\
-                &= \sum_{k = 1}^q x \times a_k u^k \\
-                &= x \times \sum_{k = 1}^q a_k u^k \\
-                &= x \times K_a(u)
-                \end{split}
-            $$
-            which shows that
-            $$
-                K_a \circ (x \overline{\boxtimes} \cdot)
-                = (x \times \cdot) \circ K_a
-                : \bigoplus_{k = 1}^q \to \mathbb{R}^3
-            $$
-            holds.
-            <div style="text-align: center; font-weight: bold;">
-                Q E D
+                <div style="text-align: center; font-weight: bold;">
+                    Q E D
+                </div>
             </div>
+
+            <!-- MOMENT REACTION OF TC -->
+            <h3 class="counter" id="atc:6-moment_tc">Moment Reaction of TC</h3>
+            <p>
+                The moments at the support reaction of the TC can be computed, similar to the forces, by applying the force equilibrium principle (<a href="#du_bois">Du Bois, 1902</a>), as a matrix $M \in \mathbb{R}^{m \times 3}$ by a matrix-like multiplication
+                $$
+                    M
+                    = C \tau
+                    = \begin{bmatrix}
+                        c_{11}      & c_{12}    & \dotsb    & c_{1q} \\
+                        c_{21}      & c_{22}    & \dotsb    & c_{2q} \\
+                        \vdots      & \vdots    & \ddots    & \vdots \\
+                        c_{m1}      & c_{m2}    & \dotsb    & c_{mq} \\
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                        \tau^1 \\ \tau^2 \\ \vdots \\ \tau^q
+                    \end{bmatrix}
+                    := \begin{bmatrix}
+                        c_1 \diamond_q \tau \\ c_2 \diamond_q \tau \\ \vdots \\ c_m \diamond_q \tau
+                    \end{bmatrix}
+                    = \begin{bmatrix}
+                        K_{c_1}(\tau) \\ K_{c_2}(\tau) \\ \vdots \\ K_{c_m}(\tau)
+                    \end{bmatrix}
+                $$
+                where
+                $$
+                    \tau := \sum_{i = 1}^n x_i \overline{\boxtimes} v_i \,.
+                $$
+                Each row vector in $M$ is the moment at the support reaction factored by a load combination. And follows from the <a href="#thm:comb_operators">combination operators theorem</a> and the <a href="#thm:comb_boxtimes">$\overline{\boxtimes}$-combination composition theorem</a>, we obtain
+                $$
+                    \begin{split}
+                    \forall j \in \{1, \dotsc, m\} \,,\;
+                    K_{c_j}(\tau)
+                    &= K_{c_j} \left( \sum_{i = 1}^n \tau_i \right) \\
+                    &= \sum_{i = 1}^n K_{c_j}(\tau_i) \\
+                    &= \sum_{i = 1}^n K_{c_j}(x_i \overline{\boxtimes} v_i) \\
+                    &= \sum_{i = 1}^n x_i \times K_{c_j}(v_i)
+                    \end{split}
+                $$
+                which is consistent with how one calculates the moments in a structure by first applying a load combination on assigned external loads.
+            </p>
+
+            <!-- BOUNDED LINEAR OPERATOR OF LC -->
+            <h3 class="counter" id="atc:7-blo_lc">
+                Bounded Linear Operators on Load Combinations
+            </h3>
+            <p>
+                Alternatively, we can also focus on the load combinations as the determining factor in the results of the computation, and instead build a transformation from the load combinations to the factored support reaction forces and moments. Let $T_F, T_M: \mathbb{R}^q \to \mathbb{R}^3$ be the operators which are defined by
+                $$
+                    \forall a \in \mathbb{R}^q \;
+                    \left[\, T_F(a) := \sum_{i = 1}^n K_a(v_i) \,\right]
+                $$
+                and
+                $$
+                    \forall a \in \mathbb{R}^q \;
+                    \left[\, T_M(a) := \sum_{i = 1}^n x_i \times K_a(v_i) \,\right] \,.
+                $$
+                It can be shown that $T_F, T_M \in \mathcal{B}(\mathbb{R}^q, \mathbb{R}^3)$ as presented in the following theorem.
+            </p>
+
+            <!-- THEOREM -->
+            <div class="thm">
+                <b id="thm:alt_operators">Theorem</b>
+                (Operators on Combinations). &NonBreakingSpace;
+                <i>
+                    $T_F, T_M \in \mathcal{B}(\mathbb{R}^q, \mathbb{R}^3)$.
+                    <br>
+                    Proof. &NonBreakingSpace;
+                </i>
+                Let $\alpha, \beta \in \mathbb{R}$ and $a, b \in \mathbb{R}^q$. Follows from the <a href="#thm:bilinear_diamond">bilinearity of $\diamond_q$</a> and <a href="#thm:comb_operators">combination operator theorem</a>, we have
+                $$
+                    \begin{split}
+                        T_F(\alpha a + \beta b)
+                        &= \sum_{i = 1}^n K_{\alpha a + \beta b}(v_i) \\
+                        &= K_{\alpha a + \beta b} (v) \\
+                        &= (\alpha a + \beta b) \diamond_q v \\
+                        &= \alpha (a \diamond_q v )
+                            + \beta (b \diamond_q v ) \\
+                        &= \alpha K_a (v) + \beta K_b (v) \\
+                        &= \alpha \left( \sum_{i = 1}^n K_a(v_i) \right)
+                            + \beta \left( \sum_{i = 1}^n K_b(v_i) \right) \\
+                        &= \alpha T_F(a) + \beta T_F(b)
+                    \end{split}
+                $$
+                which shows that $T_F$ is a linear operator, and hence, $T_F \in \mathcal{B}(\mathbb{R}^q, \mathbb{R}^3)$ since every linear operator in a finite dimensional vector space is bounded (<a href="#kreyszig_fa">Kreyszig, 1978</a>). Likewise, for $T_M$, follows from <a href="#thm:comb_boxtimes">$\overline{\boxtimes}$-combination composition theorem</a> we obtain
+                $$
+                    \begin{split}
+                        T_M(\alpha a + \beta b)
+                        &= \sum_{i = 1}^n x_i \times K_{\alpha a + \beta b}(v_i) \\
+                        &= K_{\alpha a + \beta b}(\tau) \\
+                        &= (\alpha a + \beta b) \diamond_q \tau \\
+                        &= \alpha (a \diamond_q \tau)
+                            + \beta (b \diamond_q \tau) \\
+                        &= \alpha K_a(\tau)
+                            + \beta K_b(\tau) \\
+                        &= \alpha \left( \sum_{i = 1}^n K_a(x_i \overline{\boxtimes} v_i) \right)
+                            + \beta \left( \sum_{i = 1}^n K_b(x_i \overline{\boxtimes} v_i) \right) \\
+                        &= \alpha \left( \sum_{i = 1}^n x_i \times K_a(v_i) \right)
+                            + \beta \left( \sum_{i = 1}^n x_i \times K_b(v_i) \right) \\
+                        &= \alpha T_F(a) + \beta T_F(b)
+                    \end{split}
+                $$
+                which eventually shows that $T_M \in \mathcal{B}(\mathbb{R}^q, \mathbb{R}^3)$.
+                <div style="text-align: center; font-weight: bold;">
+                    Q E D
+                </div>
+            </div>
+
+            <p>
+                If a bounded linear operator of the form $K_{(\cdot)}$ is an operator on $\bigoplus_{k = 1}^q V_k$, the operators $T_F, T_M$ are bounded linear operators on $\mathbb{R}^q$, and both types of operators map to $\mathbb{R}^3$.
+            </p>
+
+
+            <!-- MATRIX FORMS -->
+            <h3 class="counter" id="atc:8-matrix_tc">
+                Matrix Forms of Operators on Load Combinations
+            </h3>
+            <p>
+                We have shown that both $T_F, T_M: \mathbb{R}^q \to \mathbb{R}^3$ are bounded linear operators on $\mathbb{R}^q$ in the <a href="#thm:alt_operators">operators and combinations theorem</a>. Now we will find the matrix representations of $T_F$ and $T_M$. Let $d \in \mathbb{R}^q$ be a certain load combination, which can also be expressed in terms of its components by
+                $$
+                    d = (d_1, \dotsc, d_q) \,.
+                $$
+            </p>
+            <p>
+                Follows from its definition, for $T_F$, we obtain
+                $$
+                    \begin{split}
+                    T_F(d)
+                    &= \sum_{i = 1}^n K_d(v_i)
+                    = K_d(v)
+                    = d \diamond_q v
+                    = \sum_{j = 1}^q d_j v^j \\
+                    &= \begin{bmatrix}
+                        v^1     & v^2   & \dotsb    & v^q
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                        d_1     \\ d_2  \\ \vdots   \\ d_q
+                    \end{bmatrix}
+                    \end{split}
+                $$
+                in which we express $v^1, \dotsc, v^q$ and $d_1, \dotsc, d_q$ column vectors. Hence, we can define a matrix $R_F \in \mathbb{R}^{3 \times q}$ by
+                $$
+                    R_F :=
+                    \begin{bmatrix}
+                        v^1     & v^2   & \dotsb    & v^q
+                    \end{bmatrix} \,,
+                $$
+                and the operator $T_F$ can be simply expressed as a matrix multiplication
+                $$
+                    T_F(d) = R_F \, d \,.
+                $$
+            </p>
+            <p>
+                In a similar fashion, for $T_M$, we obtain
+                $$
+                    \begin{split}
+                    T_M(d)
+                    &= \sum_{i = 1}^n x_i \times K_d(v_i)
+                    = K_d(\tau)
+                    = d \diamond_q \tau
+                    = \sum_{j = 1}^q d_j \tau^j \\
+                    &= \begin{bmatrix}
+                        \tau^1     & \tau^2   & \dotsb    & \tau^q
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                        d_1     \\ d_2  \\ \vdots   \\ d_q
+                    \end{bmatrix} \,.
+                    \end{split}
+                $$
+                And we define a matrix $R_M \in \mathbb{R}^{3 \times q}$ by
+                $$
+                    R_M :=
+                    \begin{bmatrix}
+                        \tau^1     & \tau^2   & \dotsb    & \tau^q
+                    \end{bmatrix}
+                $$
+                and the operator $T_M$ can be simply expressed as a matrix multiplication
+                $$
+                    T_M(d) = R_M \, d \,.
+                $$
+            </p>
+            <p>
+                The representation of $T_F$ and $T_M$ as matrix multiplications can significantly decrease the computational process.
+            </p>
         </div>
 
-        <!-- MOMENT REACTION OF TC -->
-        <h3 class="counter" id="atc:6-moment_tc">Moment Reaction of TC</h3>
-        <p>
-            The moments at the support reaction of the TC can be computed, similar to the forces, by applying the force equilibrium principle (<a href="#du_bois">Du Bois, 1902</a>), as a matrix $M \in \mathbb{R}^{m \times 3}$ by a matrix-like multiplication
-            $$
-                M
-                = C \tau
-                = \begin{bmatrix}
-                    c_{11}      & c_{12}    & \dotsb    & c_{1q} \\
-                    c_{21}      & c_{22}    & \dotsb    & c_{2q} \\
-                    \vdots      & \vdots    & \ddots    & \vdots \\
-                    c_{m1}      & c_{m2}    & \dotsb    & c_{mq} \\
-                \end{bmatrix}
-                \begin{bmatrix}
-                    \tau^1 \\ \tau^2 \\ \vdots \\ \tau^q
-                \end{bmatrix}
-                := \begin{bmatrix}
-                    c_1 \diamond_q \tau \\ c_2 \diamond_q \tau \\ \vdots \\ c_m \diamond_q \tau
-                \end{bmatrix}
-                = \begin{bmatrix}
-                    K_{c_1}(\tau) \\ K_{c_2}(\tau) \\ \vdots \\ K_{c_m}(\tau)
-                \end{bmatrix}
-            $$
-            where
-            $$
-                \tau := \sum_{i = 1}^n x_i \overline{\boxtimes} v_i \,.
-            $$
-            Each row vector in $M$ is the moment at the support reaction factored by a load combination. And follows from the <a href="#thm:comb_operators">combination operators theorem</a> and the <a href="#thm:comb_boxtimes">$\overline{\boxtimes}$-combination composition theorem</a>, we obtain
-            $$
-                \begin{split}
-                \forall j \in \{1, \dotsc, m\} \,,\;
-                K_{c_j}(\tau)
-                &= K_{c_j} \left( \sum_{i = 1}^n \tau_i \right) \\
-                &= \sum_{i = 1}^n K_{c_j}(\tau_i) \\
-                &= \sum_{i = 1}^n K_{c_j}(x_i \overline{\boxtimes} v_i) \\
-                &= \sum_{i = 1}^n x_i \times K_{c_j}(v_i)
-                \end{split}
-            $$
-            which is consistent with how one calculates the moments in a structure by first applying a load combination on assigned external loads.
-        </p>
 
-        <!-- BOUNDED LINEAR OPERATOR OF LC -->
-        <h3 class="counter" id="atc:7-blo_lc">
-            Bounded Linear Operators on Load Combinations
-        </h3>
-        <p>
-            Alternatively, we can also focus on the load combinations as the determining factor in the results of the computation, and instead build a transformation from the load combinations to the factored support reaction forces and moments. Let $T_F, T_M: \mathbb{R}^q \to \mathbb{R}^3$ be the operators which are defined by
-            $$
-                \forall a \in \mathbb{R}^q \;
-                \left[\, T_F(a) := \sum_{i = 1}^n K_a(v_i) \,\right]
-            $$
-            and
-            $$
-                \forall a \in \mathbb{R}^q \;
-                \left[\, T_M(a) := \sum_{i = 1}^n x_i \times K_a(v_i) \,\right] \,.
-            $$
-            It can be shown that $T_F, T_M \in \mathcal{B}(\mathbb{R}^q, \mathbb{R}^3)$ as presented in the following theorem.
-        </p>
-
-        <!-- THEOREM -->
-        <div class="thm">
-            <b id="thm:alt_operators">Theorem</b>
-            (Operators on Combinations). &NonBreakingSpace;
-            <i>
-                $T_F, T_M \in \mathcal{B}(\mathbb{R}^q, \mathbb{R}^3)$.
-                <br>
-                Proof. &NonBreakingSpace;
-            </i>
-            Let $\alpha, \beta \in \mathbb{R}$ and $a, b \in \mathbb{R}^q$. Follows from the <a href="#thm:bilinear_diamond">bilinearity of $\diamond_q$</a> and <a href="#thm:comb_operators">combination operator theorem</a>, we have
-            $$
-                \begin{split}
-                    T_F(\alpha a + \beta b)
-                    &= \sum_{i = 1}^n K_{\alpha a + \beta b}(v_i) \\
-                    &= K_{\alpha a + \beta b} (v) \\
-                    &= (\alpha a + \beta b) \diamond_q v \\
-                    &= \alpha (a \diamond_q v )
-                        + \beta (b \diamond_q v ) \\
-                    &= \alpha K_a (v) + \beta K_b (v) \\
-                    &= \alpha \left( \sum_{i = 1}^n K_a(v_i) \right)
-                        + \beta \left( \sum_{i = 1}^n K_b(v_i) \right) \\
-                    &= \alpha T_F(a) + \beta T_F(b)
-                \end{split}
-            $$
-            which shows that $T_F$ is a linear operator, and hence, $T_F \in \mathcal{B}(\mathbb{R}^q, \mathbb{R}^3)$ since every linear operator in a finite dimensional vector space is bounded (<a href="#kreyszig_fa">Kreyszig, 1978</a>). Likewise, for $T_M$, follows from <a href="#thm:comb_boxtimes">$\overline{\boxtimes}$-combination composition theorem</a> we obtain
-            $$
-                \begin{split}
-                    T_M(\alpha a + \beta b)
-                    &= \sum_{i = 1}^n x_i \times K_{\alpha a + \beta b}(v_i) \\
-                    &= K_{\alpha a + \beta b}(\tau) \\
-                    &= (\alpha a + \beta b) \diamond_q \tau \\
-                    &= \alpha (a \diamond_q \tau)
-                        + \beta (b \diamond_q \tau) \\
-                    &= \alpha K_a(\tau)
-                        + \beta K_b(\tau) \\
-                    &= \alpha \left( \sum_{i = 1}^n K_a(x_i \overline{\boxtimes} v_i) \right)
-                        + \beta \left( \sum_{i = 1}^n K_b(x_i \overline{\boxtimes} v_i) \right) \\
-                    &= \alpha \left( \sum_{i = 1}^n x_i \times K_a(v_i) \right)
-                        + \beta \left( \sum_{i = 1}^n x_i \times K_b(v_i) \right) \\
-                    &= \alpha T_F(a) + \beta T_F(b)
-                \end{split}
-            $$
-            which eventually shows that $T_M \in \mathcal{B}(\mathbb{R}^q, \mathbb{R}^3)$.
-            <div style="text-align: center; font-weight: bold;">
-                Q E D
-            </div>
+        <!-- FINAL THOUGHTS -->
+        <div>
+            <h2 class="counter">Final Thoughts</h2>
+            <p>
+                It may be surprising that the modelling of a tower crane structure can trigger such a rich linear algebraic structure as presented in <a href="#algebra_tc">Section 2</a>. It allows us to introduce new fascinating operations such as $\diamond_q$, $\overline{\boxtimes}$ and $\underline{\boxtimes}$ as well as bounded linear operators made from these operations which have been shown through rigorous proof-based descriptions. The application of direct sum of vector spaces which are distinguished by their functions, not only poses its own elegance, but also maintains the clarity of the physical interpretation of the system.
+            </p>
+            <p>
+                Overall, our system eventually provides a much simplified computational approach as presented in the final part of <a href="#atc:4-force_tc">Section 2.4</a>, <a href="atc:6-moment_tc">Section 2.6</a> and <a href="atc:8-matrix_tc">Section 2.8</a>. In particular, the most simplified approach may be given by that in <a href="atc:8-matrix_tc">Section 2.8</a> as we can reduce the entire computation into two simple matrix multiplications. A skeptical perspective, by the final simplified approach, might consider what we have built as something redundant—which, we think, is not the case at all, since we may not end up seeing the final simplified approach without the building entire system with the basic physical assumption and then its translation in the language of linear algebra. In addition, the linear algebraic structure that we have discovered in this model, not only is elegant, but also has its own right for existence.
+            </p>
         </div>
 
-        <p>
-            If a bounded linear operator of the form $K_{(\cdot)}$ is an operator on $\bigoplus_{k = 1}^q V_k$, the operators $T_F, T_M$ are bounded linear operators on $\mathbb{R}^q$, and both types of operators map to $\mathbb{R}^3$.
-        </p>
-
-
-        <!-- MATRIX FORMS -->
-        <h3 class="counter" id="atc:8-matrix_tc">
-            Matrix Forms of Operators on Load Combinations
-        </h3>
-        <p>
-            We have shown that both $T_F, T_M: \mathbb{R}^q \to \mathbb{R}^3$ are bounded linear operators on $\mathbb{R}^q$ in the <a href="#thm:alt_operators">operators and combinations theorem</a>. Now we will find the matrix representations of $T_F$ and $T_M$. Let $d \in \mathbb{R}^q$ be a certain load combination, which can also be expressed in terms of its components by
-            $$
-                d = (d_1, \dotsc, d_q) \,.
-            $$
-        </p>
-        <p>
-            Follows from its definition, for $T_F$, we obtain
-            $$
-                \begin{split}
-                T_F(d)
-                &= \sum_{i = 1}^n K_d(v_i)
-                = K_d(v)
-                = d \diamond_q v
-                = \sum_{j = 1}^q d_j v^j \\
-                &= \begin{bmatrix}
-                    v^1     & v^2   & \dotsb    & v^q
-                \end{bmatrix}
-                \begin{bmatrix}
-                    d_1     \\ d_2  \\ \vdots   \\ d_q
-                \end{bmatrix}
-                \end{split}
-            $$
-            in which we express $v^1, \dotsc, v^q$ and $d_1, \dotsc, d_q$ column vectors. Hence, we can define a matrix $R_F \in \mathbb{R}^{3 \times q}$ by
-            $$
-                R_F :=
-                \begin{bmatrix}
-                    v^1     & v^2   & \dotsb    & v^q
-                \end{bmatrix} \,,
-            $$
-            and the operator $T_F$ can be simply expressed as a matrix multiplication
-            $$
-                T_F(d) = R_F \, d \,.
-            $$
-        </p>
-        <p>
-            In a similar fashion, for $T_M$, we obtain
-            $$
-                \begin{split}
-                T_M(d)
-                &= \sum_{i = 1}^n x_i \times K_d(v_i)
-                = K_d(\tau)
-                = d \diamond_q \tau
-                = \sum_{j = 1}^q d_j \tau^j \\
-                &= \begin{bmatrix}
-                    \tau^1     & \tau^2   & \dotsb    & \tau^q
-                \end{bmatrix}
-                \begin{bmatrix}
-                    d_1     \\ d_2  \\ \vdots   \\ d_q
-                \end{bmatrix} \,.
-                \end{split}
-            $$
-            And we define a matrix $R_M \in \mathbb{R}^{3 \times q}$ by
-            $$
-                R_M :=
-                \begin{bmatrix}
-                    \tau^1     & \tau^2   & \dotsb    & \tau^q
-                \end{bmatrix}
-            $$
-            and the operator $T_M$ can be simply expressed as a matrix multiplication
-            $$
-                T_M(d) = R_M \, d \,.
-            $$
-        </p>
-        <p>
-            The representation of $T_F$ and $T_M$ as matrix multiplications can significantly decrease the computational process.
-        </p>
+        <!-- BIBLIOGRAPHY -->
+        <div>
+            <h2 id="bib">Bibliography</h2>
+            <div id="bergmann">Bergmann, M., Moor, J., and Nelson, J. (2014). <i>The Logic Book (Sixth Edition)</i>. McGraw-Hill, New York.</div>
+            <div id="du_bois">Du-Bois, A. J. (1902). <i>The Mechanics of Engineering</i>. John Wiley & Sons, New York.</div>
+            <div id="kreyszig_fa">Kreyszig, E. (1978). <i>Introductory Functional Analysis with Applications</i>. Wiley, New York.</div>
+            <div id="roman">Roman, S. (2005). <i>Advanced Linear Algebra (Second Edition)</i>. Springer, New York.</div>
+            <div id="rudin">Rudin, W. (1964). <i>Principles of Mathematical Analysis</i>. McGraw-Hill, New York.</div>
+            <div id="strang">Strang, G. (2016). <i>Introduction to Linear Algebra (5th Edition)</i>. Wellesley-Cambridge Press.</div>
+        </div>
     </div>
 
-
-    <!-- FINAL THOUGHTS -->
-    <div>
-        <h2 class="counter">Final Thoughts</h2>
-        <p>
-            It may be surprising that the modelling of a tower crane structure can trigger such a rich linear algebraic structure as presented in <a href="#algebra_tc">Section 2</a>. It allows us to introduce new fascinating operations such as $\diamond_q$, $\overline{\boxtimes}$ and $\underline{\boxtimes}$ as well as bounded linear operators made from these operations which have been shown through rigorous proof-based descriptions. The application of direct sum of vector spaces which are distinguished by their functions, not only poses its own elegance, but also maintains the clarity of the physical interpretation of the system.
-        </p>
-        <p>
-            Overall, our system eventually provides a much simplified computational approach as presented in the final part of <a href="#atc:4-force_tc">Section 2.4</a>, <a href="atc:6-moment_tc">Section 2.6</a> and <a href="atc:8-matrix_tc">Section 2.8</a>. In particular, the most simplified approach may be given by that in <a href="atc:8-matrix_tc">Section 2.8</a> as we can reduce the entire computation into two simple matrix multiplications. A skeptical perspective, by the final simplified approach, might consider what we have built as something redundant—which, we think, is not the case at all, since we may not end up seeing the final simplified approach without the building entire system with the basic physical assumption and then its translation in the language of linear algebra. In addition, the linear algebraic structure that we have discovered in this model, not only is elegant, but also has its own right for existence.
-        </p>
-    </div>
-
-    <!-- BIBLIOGRAPHY -->
-    <div>
-        <h2 id="bib">Bibliography</h2>
-        <div id="bergmann">Bergmann, M., Moor, J., and Nelson, J. (2014). <i>The Logic Book (Sixth Edition)</i>. McGraw-Hill, New York.</div>
-        <div id="du_bois">Du-Bois, A. J. (1902). <i>The Mechanics of Engineering</i>. John Wiley & Sons, New York.</div>
-        <div id="kreyszig_fa">Kreyszig, E. (1978). <i>Introductory Functional Analysis with Applications</i>. Wiley, New York.</div>
-        <div id="roman">Roman, S. (2005). <i>Advanced Linear Algebra (Second Edition)</i>. Springer, New York.</div>
-        <div id="rudin">Rudin, W. (1964). <i>Principles of Mathematical Analysis</i>. McGraw-Hill, New York.</div>
-        <div id="strang">Strang, G. (2016). <i>Introduction to Linear Algebra (5th Edition)</i>. Wellesley-Cambridge Press.</div>
-    </div>
+    <div class="right-bar"></div>
 </div>
