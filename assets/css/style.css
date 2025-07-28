@@ -299,6 +299,15 @@ img.home {
     color: rgb(40, 215, 180);
 }
 
+.thm a:hover {
+    color: rgb(55, 130, 180);
+}
+
+.thm-qed {
+    text-align: center;
+    font-weight: bold;
+}
+
 .mini-game {
     background-color: white;
     max-width: 100%;

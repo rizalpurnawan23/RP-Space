@@ -1,0 +1,804 @@
+---
+layout: subsublevel
+title: RP-Space | Exposition JN2501
+---
+
+<div class="content" style="margin-bottom: 4rem;">
+    <i style="font-size: small;">
+        June, 2025      <!-- Type the date here -->
+        | EN            <!-- LANGUAGE -->
+    </i>
+    <div class="article">
+        <div class="article-title">
+            On Countability and Separability of Metrizable Spaces
+        </div>
+        <div class="article-author">
+            Rizal Purnawan
+            <a href="https://orcid.org/0000-0001-8858-4036">
+                <img src="..\..\assets\img\ORCID_iD.svg"
+                    class="article-author">
+            </a>
+        </div>
+    </div>
+    
+    <!-- ANECDOTAL NOTE -->
+    <div>
+        <div class="anecdote-title">
+            Abstract
+        </div>
+        <p>
+            This expository article discusses foundational topological properties of metrizable spaces related to bases countability and separability, which are some classical results in general and metric topology. While assuming the reader’s familiarity with basic topological concepts, the article briefly reviews foundational notions relevant to the proof, including topological bases, countability of bases, and separability. The proof is reconstructed with close attention to definitions and logical structure, aiming to serve as a learning document for students and enthusiasts of topology. No new results are claimed; the goal is to clarify a well-known implication in metric topology through self-guided exploration and careful exposition.
+        </p>
+        <b>Keywords:</b>
+        <i>
+            Topological Space, Metrizable Space, Countability, Separability
+        </i>
+    </div>
+</div>
+
+    
+<div class="side-toc">
+    <!-- TABLE OF CONTENTS -->
+    <details class="sidebar" style="margin-top: 2rem;">
+        <summary style="
+            font-size: large;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0.2rem;
+            background-color: rgb(40, 215, 180);
+            padding: 0.4rem;
+            color: white;
+            ">
+            Table of Contents
+        </summary>
+
+        <!-- SECTIONS -->
+        <div class="toc-section">Sections</div>
+        <div class="toc-subsection">
+            <a href="#intro">
+                Introduction
+            </a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#sect:preliminaries">
+                Preliminaries
+            </a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#sect:main-disc">
+                Main Discussion
+            </a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#sect:final">
+                Final Thoughts
+            </a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#bib">
+                Bibliography
+            </a>
+        </div>
+
+        <!-- DEFINITION -->
+        <div class="toc-section">Definition</div>
+        <div class="toc-subsection">
+            <a href="#def:top_base">Definition 1 (Topological Base)</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#def:neighbourhood_base">Definition 2 (Neighbourhood Base)</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#def:base_countability">Definition 3 (Base Countability)</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#def:dense_set">Definition 4 (Dense Set)</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#def:cluster_point">Definition 5 (Cluster Point)</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#def:separable_space">Definition 6 (Separable Space)</a>
+        </div>
+
+        <!-- THEOREM -->
+        <div class="toc-section">Theorem</div>
+        <div class="toc-subsection">
+            <a href="#thm:base_char">Theorem 1</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#thm:sec_count_is_first_count">Theorem 2</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#thm:cluster_closed">Theorem 3</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#thm:dense_char">Theorem 4</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#thm:second_count_separable">Theorem 5</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#thm:metrizable_first_count">Theorem 6</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#thm:separable_metrizable_second_count">Theorem 7</a>
+        </div>
+
+        <!-- PROPOSITION -->
+        <div class="toc-section">Proposition</div>
+        <div class="toc-subsection">
+            <a href="#prop:base_neigh">Proposition 1</a>
+        </div>
+        
+        <!-- LEMMA -->
+        <div class="toc-section">Lemma</div>
+        <div class="toc-subsection">
+            <a href="#lemma:closure_disjoint">Lemma 1</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#lemma:dense_base">Lemma 2</a>
+        </div>
+        
+        <!-- COROLLARY -->
+        <div class="toc-section">Corollary</div>
+        <div class="toc-subsection">
+            <a href="#cor:closure_char">Corollary 1</a>
+        </div>
+        <div class="toc-subsection">
+            <a href="#cor:metrizable_separability_second_count">
+                Corollary 2
+            </a>
+        </div>
+    </details>
+
+    
+    <div class="article-content">
+        <!-- INRTODUCTION -->
+        <div>
+            <h2 class="counter" id="intro">Introduction</h2>
+            <p>
+                A metric space is a mathematical abstraction of the real-world notion of a space in which distances between elements can be defined (<a href="#searcoid">Searcoid, 2007</a>). A simple example is given by a flat yard: each particle on the yard can be viewed as a point in a set, and the distance between two particles can be measured by the length of the straight line connecting them. This forms a two dimensional Euclidean metric space (<a href="#searcoid">Searcoid, 2007</a>).
+            </p>
+            <p>
+                Another less geometric example can be given by the set of strings of equal length of fixed alphabets, where the distance between two strings is given by the number of differing characters at corresponding positions. This forms what is known as a Hamming metric space (<a href="#kreyszig_fa">Kreyszig, 1978</a>). More generally, a metric space is a set equipped with a distance function satisfying a set of axioms known as the metric space axioms (<a href="#searcoid">Searcoid, 2007</a>).
+            </p>
+            <p>
+                Topology, on the other hand, is a branch of pure mathematics which studies properties of spaces preserved under continuous deformation (<a href="#munkres">Munkres, 2000</a>). At its foundation lies the notion of a topological spaces; a set endowed with a collection of subsets, called open sets, which satisfies certain axioms known as the topological space axioms (<a href="#r_andre">Andre, 2024</a>). Interestingly, metric spaces and topological spaces are closely related; every metric space induces a topological space (<a href="#r_andre">Andre, 2024</a>). This connection can be directly deduced from the axioms of metric space and topological spaces (<a href="#r_andre">Andre, 2024</a>). A topological space whose topology is induced from a metric space is known as a metrizable space (<a href="#r_andre">Andre, 2024</a>).
+            </p>
+            <p>
+                Three topological properties of interest in this article are separability, first countability and second countability. A separable topological space is a topological space which contains a countable dense subset (<a href="#r_andre">Andre, 2024</a>); a subset which intersects every nonempty open sets (<a href="#r_andre">Andre, 2024</a>). A first countable space is a topological space of which every point has a countable neighbourhood base (<a href="#r_andre">Andre, 2024</a>). The notion of neighbourhood base will be precisely explained in Section 2. Meanwhile, a second countable space is one whose topology admits a countable base; a collection of open sets of which all other open sets can be formed by arbitrary unions (<a href="#r_andre">Andre, 2024</a>). A more precise treatment of these concepts will be provided in Section 2.
+            </p>
+            <p>
+                This expository article aims to reconstruct the proofs of several classical results on separability and countability of metrizable spaces (<a href="#r_andre">Andre, 2024</a>). This reconstruction deepens our understanding of how abstract topological properties emerge naturally from metric assumption. The proof also serves as an ideal exercise for practising proof-building techniques in general topology, and encourages readers to reconstruct the logical pathway from metric assumption to topological conclusions rather than only memorizing the result. This aspects are essential steps in maturing one's mathematical thinking.
+            </p>
+            <p>
+                In addition, this article forms part of a self-guided, rigorous exploration on general topology, intended to be a learning document at graduate-level mathematics, for students and enthusiasts. Therefore, no new results are claimed.
+            </p>
+            <p>
+                We assume that the reader is familiar with fundamentals of metric and topological spaces. For a foundational learning materials, the reader is referred to (<a href="#searcoid">Searcoid, 2007</a>), (<a href="#kreyszig_fa">Kreyszig, 1978</a>), (<a href="#r_andre">Andre, 2024</a>) and (<a href="#munkres">Munkres, 2000</a>). We also assume the familiarity with first order logic (<a href="#bergmann">Bergmann et al., 2014</a>), as most mathematical expressions will be presented in the language of first order logic.
+            </p>
+        </div>
+
+
+        <!-- PRELIMINARIES -->
+        <div>
+            <h2 id="sect:preliminaries" class="counter">
+                Preliminaries
+            </h2>
+            
+            <p>
+                The fundamentals of metric spaces will not be covered in this article, as well as the basic notion of topological spaces. We will begin our preliminaries with the definition of topological bases.
+            </p>
+
+            <!-- DEF: TOPOLOGICAL BASE -->
+            <div class="thm">
+                <b id="def:top_base">Definition 1</b>
+                (Topological Bases).&nbsp;
+                Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). A family $\mathcal{B} \subseteq \mathcal{T}$ is called a base for $\mathcal{T}$ if and only if
+                $$
+                    \forall U \in \mathcal{T}
+                    \exists \mathcal{A} \in \mathcal{P}(\mathcal{B}) \,,\;
+                    U = \bigcup_{A \in \mathcal{A}} A
+                $$
+                holds (<a href="#r_andre">Andre, 2024</a>).
+            </div>
+            <p>
+                <a href="#def:top_base">Definition 1</a> informally states that every open set can be formed as a union of base elements (<a href="#r_andre">Andre, 2024</a>). There are a few ways to characterize a base for a topology. One of them which will be useful for our main discussion is presented in the following theorem.
+            </p>
+
+            <!-- THM: BASE CHARACTERIZATION -->
+            <div class="thm">
+                <b id="thm:base_char">Theorem 1</b>.
+                &nbsp;
+                <i>
+                    Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). A family $\mathcal{B} \subseteq \mathcal{T}$ is a base for $\mathcal{T}$ if and only if
+                    $$
+                        \forall U \in \mathcal{T} \forall x \in X \;
+                        [\,
+                        x \in U
+                        \implies
+                        \exists B \in \mathcal{B}\;[\, x \in B \subseteq U \,]
+                        \,]
+                    $$
+                    holds.<br>
+                    Proof.&nbsp;
+                </i>
+                (Forward) For the forward part of the proof, suppose $\mathcal{B} \subseteq \mathcal{T}$ is a base for $\mathcal{T}$. Now let $U \in \mathcal{T}$. If $U = \varnothing$, then the statement is trivially satisfied. Then suppose $U \neq \varnothing$. By the definition of bases (<a href="#def:top_base">Definition 1</a>), there exists some $\mathcal{A} \subseteq \mathcal{B}$ such that
+                $$
+                    U = \bigcup_{A \in \mathcal{A}} A \,.
+                $$
+                And each point $x \in U$ must be contained in some set $B \in \mathcal{A} \subseteq \mathcal{B}$, and $B \subseteq U$ by the expression above. Together, we obtain
+                $$
+                    x \in B \subseteq U \,,
+                $$
+                which proves the formal statement.<br>
+                (Backward) Suppose
+                $$
+                    \forall U \in \mathcal{T} \forall x \in X \;
+                    [\,
+                    x \in U
+                    \implies
+                    \exists B \in \mathcal{B}\;[\, x \in B \subseteq U \,]
+                    \,]
+                $$
+                holds. Let $U \in \mathcal{T}$. From this supposition, let $\{B_x\}_{x \in U} \subseteq \mathcal{B}$ such that
+                $$
+                    \forall x \in U \,,\; x \in B_x \subseteq U \,.
+                $$
+                First, we obtain
+                $$
+                    \bigcup_{x \in U} B_x \subseteq U \,,
+                $$
+                and we also obtain
+                $$
+                    U
+                    = \bigcup_{x \in U} \{x\}
+                    \subseteq \bigcup_{x \in U} B_x \,.
+                $$
+                These two results imply
+                $$
+                    U = \bigcup_{x \in U} B_x \,.
+                $$
+                From the expression above and <a href="#def:top_base">Definition 1</a>, we have that $\mathcal{B}$ is a base for $\mathcal{T}$.
+                <div class="thm-qed">
+                    QED
+                </div>
+            </div>
+
+            <p>
+                Now we will invoke the notion of neighbourhood bases (<a href="#r_andre">Andre, 2024</a>), especially on how it connects with the notion of topological bases. A neighbourhood of a point in topology is defined as a set containing a nonempty open set which contains that point (<a href="#r_andre">Andre, 2024</a>). The collection of all neighbourhoods of a point is called a neighbourhood system (<a href="#r_andre">Andre, 2024</a>). The formal definition of a neighbourhood base is presented as follows.
+            </p>
+
+            <div class="thm">
+                <b id="def:neighbourhood_base">Definition 2</b>
+                (Neighbourhood Base).&nbsp;
+                Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). Let $x \in X$. Let $\mathcal{N}_x$ be a neighbourhood system of $x$ (<a href="#r_andre">Andre, 2024</a>), i.e.,
+                $$
+                    \mathcal{N}_x := \{ N \in \mathcal{P}(X) \mid \exists U \in \mathcal{T}[x \in U \subseteq N] \} \,.
+                $$
+                A family $\mathcal{B}_x \subseteq \mathcal{N}_x$ is called a neighbourhood base at $x$ if and only if
+                $$
+                    \forall N \in \mathcal{N}_x \exists B \in \mathcal{B}_x \,,\;
+                    x \in B \subseteq N
+                $$
+                holds. In addition, if $\mathcal{B}_x$ contains open sets, then it is called an open neighbourhood base (<a href="#r_andre">Andre, 2024</a>).
+            </div>
+
+            <p>
+                In fact we can find an intuitive analogy between a topological base as a base for a topology and a neighbourhood base as a base for a neighbourhood system. For a topological base, it forms every open set by arbitrary union of its elements since an open set is closed under arbitrary union. For a neighbourhood base, each neighbourhood contains a an element of the neighbourhood base, which is nonempty, as a subset since each neighbourhood contains a nonempty open set.
+            </p>
+            <p>
+                An important connection between neighbourhood bases and bases of topology is that some subset of a base forms a neighbourhood base at a point. This notion is presented in the following proposition.
+            </p>
+
+            <div class="thm">
+                <b id="prop:base_neigh">Proposition 1</b>.&nbsp;
+                <i>
+                    Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). Let $\mathcal{B} \subseteq \mathcal{T}$ be a base for $\mathcal{T}$. Let $x \in X$. The family
+                    $$
+                        \mathcal{B}_x := \{ B \in \mathcal{B} \mid x \in B \}
+                    $$
+                    is an open neighbourhood base at $x$ by <a href="#thm:base_char">Theorem 1</a> and <a href="#def:neighbourhood_base">Definition 2</a>.
+                </i>
+            </div>
+
+            <p>
+                The reader is now referred to (<a href="#r_andre">Andre, 2024</a>) for further properties of topological bases. It is also worth mentioning that the notion of neighbourhood base is involved in the defining notion of first countable spaces (<a href="#r_andre">Andre, 2024</a>). We shall see this in the formal definition of base countability. We now move to the notion of base countability (<a href="#r_andre">Andre, 2024</a>) which is presented as follows.
+            </p>
+
+            <div class="thm">
+                <b id="def:base_countability">Definition 3</b> (Base Countability).&nbsp;
+                Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). Let $\mathrm{Bases}(\mathcal{T})$ be the family of all bases for $\mathcal{T}$.
+                <ol type="i">
+                    <li>
+                        $(X, \mathcal{T})$ is referred to as a first countable space if and only if
+                        $$
+                            \forall x \in X
+                            \exists \mathcal{B}_x \in \mathcal{P}(\mathcal{N}_x) \,,\;
+                            |\mathcal{B}_x| \leq |\mathbb{N}|
+                        $$
+                        holds (<a href="#r_andre">Andre, 2024</a>). Note that $\mathcal{B}_{(\cdot)}$ denotes a neighbourhood base at a point in $X$ and $\mathcal{N}_{(\cdot)}$ denotes the neighbourhood system at a point in $X$ in accordance with <a href="#def:neighbourhood_base">Definition 2</a>. Informally, a topological space is first countable if and only if each point in the space has a countable neighbourhood base (<a href="#r_andre">Andre, 2024</a>).
+                    </li>
+                    <li>
+                        $(X, \mathcal{T})$ is referred to as a second countable space if and only if
+                        $$
+                            \exists \mathcal{B} \in \mathrm{Bases}(\mathcal{T}) \,,\;
+                            |\mathcal{B}| \leq |\mathbb{N}|
+                        $$
+                        holds (<a href="#r_andre">Andre, 2024</a>). Informally, a topological space is second countable if and only if it has a countable base (<a href="#r_andre">Andre, 2024</a>).
+                    </li>
+                </ol>
+            </div>
+
+            <p>
+                Follows from <a href="#def:base_countability">Definition 3</a>, it can be inferred that a first countable space is weaker than a second countable space. This notion is asserted in the following theorem, which is also a direct consequence of <a href="#prop:base_neigh">Proposition 1</a>.
+            </p>
+
+            <div class="thm">
+                <b id="thm:sec_count_is_first_count">Theorem 2</b>.&nbsp;
+                <i>
+                    Every second countable space is a first countable space.<br>
+                    Proof.&nbsp;
+                </i>
+                Let $(X, \mathcal{T})$ be a second countable space (<a href="#r_andre">Andre, 2024</a>). By part ii in <a href="#def:base_countability">Definition 3</a>, there exists some basis $\mathcal{B}$ for $\mathcal{T}$ such that $|\mathcal{B}| \leq |\mathbb{N}|$. Let $x \in X$. And let
+                $$
+                    \mathcal{B}_x := \{ B \in \mathcal{B} \mid x \in B \} \,,
+                $$
+                which is an open neighbourhood base by <a href="#prop:base_neigh">Proposition 1</a>. Note that $\mathcal{B}_x \subseteq \mathcal{B}$. Then we obtain
+                $$
+                    |\mathcal{B}_x| \leq |\mathcal{B}| \leq |\mathbb{N}| \,,
+                $$
+                which, by part i of <a href="#def:base_countability">Definition 3</a>, shows that $(X, \mathcal{T})$ is also first countable.
+                <div class="thm-qed">
+                    QED
+                </div>
+            </div>
+
+            <p>
+                Now we proceed with the notion of dense sets, which is crucial for describing separability as me have mentioned earlier. The formal definition of dense sets is presented as follows.
+            </p>
+
+            <div class="thm">
+                <b id="def:dense_set">Definition 4</b> (Dense Set).&nbsp;
+                Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). A subset $D \subseteq X$ is called a dense subset if and only if
+                $$
+                    \forall U \in \mathcal{T} \;
+                    [\, U \neq \varnothing \implies U \cap D \neq \varnothing \,]
+                $$
+                holds (<a href="#r_andre">Andre, 2024</a>).
+            </div>
+
+            <p>
+                The simplest common presented example of a dense set is the set $\mathbb{Q}$ of all rational numbers in $\mathbb{R}$ with respect to the standard topology on $\mathbb{R}$ (<a href="#r_andre">Andre, 2024</a>). What we mean by the standard topology on $\mathbb{R}$ is a topology induced from the standard Euclidean metric on $\mathbb{R}$ (<a href="#searcoid">Searcoid, 2007</a>), i.e., the distance function $d_\mathbb{R}: \mathbb{R} \times \mathbb{R} \to [0, \infty)$ defined by
+                $$
+                    \forall x, y \in \mathbb{R} \,,\;
+                    d_\mathbb{R}(x, y) := |x - y| \,.
+                $$
+                In this setting, an open set in $\mathbb{R}$ can be expressed as a union of open intervals, and in fact, the set of all open intervals in $\mathbb{R}$ serves as a base for the standard Euclidean topology (<a href="#r_andre">Andre, 2024</a>). And an intersection of any open set in $\mathbb{R}$ with $\mathbb{Q}$ cannot be empty as a consequence of the Archimedean property of real numbers (<a href="#rudin">Rudin, 1964</a>).
+            </p>
+            
+            <p>
+                We now need to revisit some results related to closure of set (<a href="#r_andre">Andre, 2024</a>). A closure of a set is defined as the smallest closed set containing the set, and a closed set is a set expressible as a complement of some open set (<a href="#r_andre">Andre, 2024</a>). For a given set $S$, the closure of $S$ is formally expressed by $\mathrm{cl}(S)$ (<a href="#r_andre">Andre, 2024</a>). The counterpart notion of closure is the notion of interior of a set, which is defined as the largest open set contained by the set (<a href="#r_andre">Andre, 2024</a>). And the interior of $S$ is expressed by $\mathrm{int}(S)$ (<a href="#r_andre">Andre, 2024</a>). Another notion closely related to both closure and interior is the notion of cluster point or limit point (<a href="#r_andre">Andre, 2024</a>). For convenience, the formal definition of cluster point is presented as follows.
+            </p>
+
+            <div class="thm">
+                <b id="def:cluster_point">Definition 5</b> (Cluster Point).&nbsp;
+                Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). Let $S \subseteq X$. A point $x \in X$ is a cluster point of $S$ if and only if
+                $$
+                    \forall N \in \mathcal{P}(X) \;
+                    [\,
+                    x \in N \land \mathrm{int}(N) \neq \varnothing
+                    \implies N \cap (S \setminus \{x\}) \neq \varnothing
+                    \,]
+                $$
+                holds (<a href="#r_andre">Andre, 2024</a>). And $\partial S$ denotes the set of all cluster points of $S$ (<a href="#r_andre">Andre, 2024</a>), which is also known as the derived set of $S$.
+            </div>
+
+            <p>
+                The very connection of cluster points with closed sets is that a closed set contains all of its cluster points (<a href="#r_andre">Andre, 2024</a>). We will restate this result in a rigorous manner in the following theorem.
+            </p>
+
+            <div class="thm">
+                <b id="thm:cluster_closed">Theorem 3</b>.&nbsp;
+                <i>
+                    Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). Let $S \subseteq X$. The statement
+                    $$
+                        S^C \in \mathcal{T} \iff \partial S \subseteq S
+                    $$
+                    holds.<br>
+                    Proof.&nbsp;
+                </i>
+                If $S = X$, then it contains all points, consequently, the statement trivially holds. And if $S = \varnothing$, the statement also hold by vacuous truth. Therefore, now suppose $\varnothing \subset S \subset X$.
+                <br>
+                (Forward) Suppose $S^C \in \mathcal{T}$, i.e., $S$ is a closed set. We prove the forward part by contradiction. Let us assume that $\partial S \nsubseteq S$. Hence,
+                $$
+                    \partial S \cap S^C \neq \varnothing \,.
+                $$
+                Let $x \in \partial S \cap S^C$. Note that $\mathrm{int}(S^C) = S^C$ since $S^C \in \mathcal{T}$ by supposition. Then $S^C$ is a neighbourhood of $x$. However,
+                $$
+                    S^C \cap S = \varnothing \,,
+                $$
+                making $x \notin \partial S$ by <a href="#def:cluster_point">Definition 5</a>, which is a contradiction. Hence, we must have $\partial S \subseteq S$.
+                <br>
+                (Backward) Suppose $\partial S \subseteq S$. Then
+                $$
+                    \partial S \cap S^C = \varnothing \,.
+                $$
+                By the contraposition of <a href="#def:cluster_point">Definition 5</a>, then each point in $S^C$ has disjoint a neighbourhood to $S$. Suppose $\{U_x\}_{x \in S} \subseteq \mathcal{T}$ is the collection of such neighbourhoods of points in $S^C$, i.e.,
+                $$
+                    \forall x \in S^C \; [\, x \in U_x \,]
+                    \;\land\;
+                    \forall x \in S^C \; [\, U_x \cap S = \varnothing \,]
+                    \,.
+                $$
+                From the left hand side of the logical conjunction above, we obtain
+                $$
+                    S^C = \bigcup_{x \in S^C} \{x\}
+                    \subseteq \bigcup_{x \in S^C} U_x \,,
+                $$
+                and the right hand side implies
+                $$
+                    \bigcup_{x \in S^C} U_x \subseteq S^C \,.
+                $$
+                Hence, we obtain
+                $$
+                    S^C = \bigcup_{x \in S^C} U_x \,,
+                $$
+                showing that $S^C \in \mathcal{T}$.
+                <div class="thm-qed">
+                    QED
+                </div>
+            </div>
+
+            <p>
+                There are two results related to closure that we will also need for the subsequent discussion. These results are presented in the following corollary and lemma.
+            </p>
+
+            <div class="thm">
+                <b id="cor:closure_char">Corollary 1</b>.&nbsp;
+                <i>
+                    Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). Let $S \subseteq X$ and $x \in X$. The statement
+                    $$
+                        x \in \mathrm{cl}(S)
+                        \iff
+                        \forall N \in \mathcal{P}(X) \;
+                        [\,
+                        x \in N \land \mathrm{int}(N) \neq \varnothing
+                        \implies N \cap S \neq \varnothing
+                        \,]
+                    $$
+                    holds.<br>
+                    Proof.&nbsp;
+                </i>
+                (Forward) Suppose $x \in \mathrm{cl}(S)$. By <a href="#thm:cluster_closed">Theorem 3</a>, we have $\partial S \subseteq S$, which together with <a href="#def:cluster_point">Definition 5</a>, we obtain
+                $$
+                    \forall N \in \mathcal{P}(X) \;
+                    [\,
+                    x \in N \land \mathrm{int}(N) \neq \varnothing
+                    \implies N \cap S \neq \varnothing
+                    \,] \,.
+                $$
+
+                \noindent
+                (Backward) Now suppose the statement
+                $$
+                    \forall N \in \mathcal{P}(X) \;
+                    [\,
+                    x \in N \land \mathrm{int}(N) \neq \varnothing
+                    \implies N \cap S \neq \varnothing
+                    \,]
+                $$
+                is true. We will prove this backward part by contradiction. Let us assume that $x \notin \mathrm{cl}(S)$. Then $x \in \mathrm{cl}(S)^C$. And since $\mathrm{cl}(S)^C \in \mathcal{T}$, then $\mathrm{cl}(S)^C$ is an open neighbourhood of $x$. However, it contradicts our supposition since
+                $$
+                    \mathrm{cl}(S)^C \cap \mathrm{cl}(S) = \varnothing \,.
+                $$
+                implies
+                $$
+                    \mathrm{cl}(S)^C \cap S = \varnothing
+                $$
+                as $S \subseteq \mathrm{cl}(S)$. Then we must have $x \in \mathrm{cl}(S)$.
+                <div class="thm-qed">
+                    QED
+                </div>
+            </div>
+
+            <div class="thm">
+                <b id="lemma:closure_disjoint">Lemma 1</b>.&nbsp;
+                <i>
+                    Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). Let $U \in \mathcal{T}$ and $S \subseteq X$ such that $U \cap S = \varnothing$. Then
+                    $$
+                        U \cap \mathrm{cl}(S) = \varnothing
+                    $$
+                    holds.<br>
+                    Proof.&nbsp;
+                </i>
+
+                If either $U = \varnothing$ or $S = \varnothing$, then the results follows trivially. Now suppose $U \neq \varnothing$ and $S \neq \varnothing$. We prove for this part by contradiction. Assume
+                $$
+                    U \cap \mathrm{cl}(S) \neq \varnothing \,.
+                $$
+                Then let $x \in U \cap \mathrm{cl}(S)$. Note that $x \in U$ and $U$ is an open neighbourhood of $x$. By <a href="#cor:closure_char">Corollary 1</a>, we have $U \cap S \neq \varnothing$, which is contradictory to our supposition that $U \cap S = \varnothing$. Hence, we must have $U \cap \mathrm{cl}(S) = \varnothing$.
+            </div>
+
+            <p>
+                Furthermore, we will observe an important characterization of dense sets which is presented in the following theorem.
+            </p>
+
+            <div class="thm">
+                <b id="thm:dense_char">Theorem 4</b>.&nbsp;
+                <i>
+                    Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). A set $D \subseteq X$ is dense in $X$ if and only if its closure is equal to $X$, i.e., $\mathrm{cl}(D) = X$.
+                    <br>
+                    Proof.&nbsp;
+                </i>
+
+                (Forward) Suppose $D \subseteq X$ is dense in $X$. By <a href="#def:dense_set">Definition 5</a>, every open set in $X$ has a nonempty intersection with $D$. Let us assume that $\mathrm{cl}(D) \subset X$, and hence $\mathrm{cl}(D)^C \neq \varnothing$ and it is an open set (<a href="#r_andre">Andre, 2024</a>), i.e., $\mathrm{cl}(D)^C \in \mathcal{T}$. It implies that
+                $$
+                    D \cap \mathrm{cl}(D)^C = \varnothing \,,
+                $$
+                which, by <a href="#def:dense_set">Definition 5</a>, is contradictory with the supposition that $D$ is dense. Hence, we must have $\mathrm{cl}(D) = X$.
+
+                \noindent
+                (Backward) Let $D \subseteq X$ and suppose $\mathrm{cl}(D) = X$. We will also prove the backward part by contradiction, therefore, let us assume $D$ is not dense in $X$. Then let $U \in \mathcal{T}$ with $U \neq \varnothing$ such that $D \cap U = \varnothing$, which is a valid assumption since $D$ is assumed to be not a dense set. By <a href="#lemma:closure_disjoint">Lemma 1</a>, we have $\mathrm{cl}(D) \cap U = \varnothing$. However, it means that
+                $$
+                    \varnothing
+                    = \mathrm{cl}(D) \cap U
+                    = X \cap U \,,
+                $$
+                which is a contradiction. Hence, $D$ must be dense.
+                <div class="thm-qed">
+                    QED
+                </div>
+            </div>
+
+            <p>
+                Another important property of dense sets related to bases is presented in the following lemma.
+            </p>
+
+            <div class="thm">
+                <b id="lemma:dense_base">Lemma 2</b>.&nbsp;
+                <i>
+                    Let $(X, \mathcal{T})$ be a topological space with a base $\mathcal{B} \subseteq \mathcal{T}$ (<a href="#r_andre">Andre, 2024</a>). There exists a dense subset $D \subseteq X$ such that $|D| \leq |\mathcal{B}|$.
+                    <br>
+                    Proof.&nbsp;
+                </i>
+
+                This proof will be based on the axiom of choice (AC). Note that we can express $\mathcal{B}$ as an indexed family
+                $$
+                    \mathcal{B} = \{B_i\}_{i \in I}
+                $$
+                where $I$ is some index set with $|I| = |\mathcal{B}|$. By AC, let
+                $$
+                    D := \{x_i\}_{i \in I} \subseteq X \,.
+                $$
+                Then $|D| \leq |I| = |\mathcal{B}|$. We will show that $D$ is dense in $X$. Let $U \in \mathcal{T}$ such that $U \neq \varnothing$. Then, by <a href="#thm:base_char">Theorem 1</a>, we obtain
+                $$
+                    \forall x \in U \exists i \in I \,,\; x \in B_i \subseteq U \,.
+                $$
+                Again by AC, let $j \in I$ such that $x_j \in B_j \subseteq U$. Hence,
+                $$
+                    x_j \in D \cap U \,,
+                $$
+                implying
+                $$
+                    D \cap U \neq \varnothing \,.
+                $$
+                Since $U$ is arbitrary, then by <a href="#def:dense_set">Definition 5</a>, $D$ is dense.
+                <div class="thm-qed">
+                    QED
+                </div>
+            </div>
+
+            <p>
+                Having discussed about dense sets and some of their fundamental properties, we now proceed with the formal definition of separable spaces.
+            </p>
+
+            <div class="thm">
+                <b id="def:separable_space">Definition 6</b> (Separable Space). &nbsp;
+                Let $(X, \mathcal{T})$ be a topological space (<a href="#r_andre">Andre, 2024</a>). We call $(X, \mathcal{T})$ a separable space if and only if there exists some dense set $D \subseteq X$ such that $|D| \leq \mathbb{N}$.
+            </div>
+
+            <p>
+                An important property connecting separable spaces with countable spaces is presented in the following theorem.
+            </p>
+
+            <div class="thm">
+                <b id="thm:second_count_separable">Theorem 5</b>. &nbsp;
+                <i>
+                    Every second countable space is separable.
+                    <br>
+                    Proof. &nbsp;
+                </i>
+
+                The result follows directly from part ii of <a href="#def:base_countability">Definition 3</a>, <a href="#lemma:dense_base">Lemma 2</a> and <a href="#def:separable_space">Definition 6</a>.
+            </div>
+
+            <p>
+                This is the end of the Preliminaries, as we have discussed the required foundations to prove the second countability of separable metrizable space which will be presented in the next section.
+            </p>
+        </div>
+
+
+        <!-- MAIN DISCUSSION -->
+        <div>
+            <h2 id="sect:main-disc" class="counter">
+                Main Discussion
+            </h2>
+            
+            <p>
+                The first in our discussion on properties of a general metrizable space related to base countability is that a metrizable space is first countable (<a href="#r_andre">Andre, 2024</a>). This result is rigorously reconstructed in the following theorem.
+            </p>
+
+            <div class="thm">
+                <b id="thm:metrizable_first_count">Theorem 6</b>. &nbsp;
+                <i>
+                    Every metrizable space is first countable.
+                    <br>
+                    Proof. &nbsp;
+                </i>
+
+                Let $(X, \mathcal{T}_d)$ be a metrizable space (<a href="#r_andre">Andre, 2024</a>), induced from a metric space $(X, d)$. A characterization of a metric-induced topology $\mathcal{T}_d$ is that its base is made of the collection of open balls (<a href="#r_andre">Andre, 2024</a>). Let $x \in X$. Now let
+                $$
+                    \tilde{\mathcal{B}}_x
+                    := \left\{
+                        B_\frac{1}{n}(x) \in \mathcal{P}(X) \mid n \in \mathbb{N}
+                    \right\} \,.
+                $$
+                Note that $\tilde{B}_x \subseteq \mathcal{T}$, since every open ball is an open set in a metrizable space (<a href="#r_andre">Andre, 2024</a>). Now let $N \subseteq N$ such that $N$ is a neighbourhood of $x$. Then there exists some $U \in \mathcal{T} \setminus \{\varnothing\}$ such that
+                $$
+                    x \in U \subseteq N
+                $$
+                (<a href="#r_andre">Andre, 2024</a>). Since every open set in a metrizable space can be expressed as a union of open balls, then there must exists some $\varepsilon > 0$ such that
+                $$
+                    x \in B_\varepsilon(x) \subseteq U \subseteq N \,.
+                $$
+                From the Archimedean property of real numbers (<a href="#rudin">Rudin, 1964</a>), we can always find some $m \in \mathbb{N}$ such that $\frac{1}{m} \leq \varepsilon$, and hence, we obtain
+                $$
+                    x \in B_\frac{1}{m}(x) \subseteq B_\varepsilon(x)
+                    \subseteq U \subseteq N \,.
+                $$
+                Note that $B_\frac{1}{m}(x) \in \tilde{B}_x$, and hence, by <a href="#def:neighbourhood_base">Definition 2</a>, $\tilde{B}_x$ is an open neighbourhood base of $x$. And we also have
+                $$
+                    \left| \tilde{B}_x \right| = |\mathbb{N}| \,.
+                $$
+                Hence, by part i of <a href="#def:base_countability">Definition 3</a>, $(X, \mathcal{T}_d)$ is first countable.
+                <div class="thm-qed">
+                    QED
+                </div>
+            </div>
+
+            <p>
+                The second property of metrizable space related to base countability that becomes our focus is the second countability of separable metrizable space. This result is presented in the following theorem.
+            </p>
+
+            <div class="thm">
+                <b id="thm:separable_metrizable_second_count">
+                    Theorem 7
+                </b>. &nbsp;
+                <i>
+                    Every separable metrizable space is second countable.
+                    <br>
+                    Proof. &nbsp;
+                </i>
+
+                Let $(X, \mathcal{T}_d)$ be a separable metrizable space (<a href="#r_andre">Andre, 2024</a>) such that $\mathcal{T}_d$ is induced from a metric $d: X \times X \to [0, \infty)$. By <a href="#def:separable_space">Definition 6</a>, $X$ admits a countable dense subset, and let $D \subseteq D$ be such a set. Suppose
+                $$
+                    D := \{ x_n \in X \mid n \in \mathbb{N} \} \,.
+                $$
+                Now let
+                $$
+                    \tilde{\mathcal{B}}
+                    := \left\{
+                        B_\frac{1}{n}(x_n) \in \mathcal{P}(X) \;\middle|\;
+                        n \in \mathbb{N}
+                    \right\} \,.
+                $$
+                Note that $\tilde{B} \subset \mathcal{T}$. Let $U \in \mathcal{T}$. By the density of $D$, we have $ U \cap D \neq \varnothing$. Let $x \in U$. Note that there must exists some $j \in \mathbb{N}$ such that
+                $$
+                    x \in B_\frac{1}{j}(x) \subseteq U \,.
+                $$
+                And again, by the density of $D$, we have
+                $$
+                    B_\frac{1}{j}(x) \cap D \neq \varnothing
+                $$
+                and also
+                $$
+                    B_\frac{1}{2j}(x) \cap D \neq \varnothing \,.
+                $$
+                The expression above implies that there exists some $k \in \mathbb{N}$ such that
+                $$
+                    x_k \in B_\frac{1}{2j} \cap D
+                $$
+                It implies
+                $$
+                    x \in B_\frac{1}{2j}(x_k)
+                    \subseteq B_\frac{1}{j}(x) \subseteq U \,,
+                $$
+                which means that, by <a href="#thm:base_char">Theorem 1</a>, $\tilde{\mathcal{B}}$ is a base for $\mathcal{T}_d$. Since $\left|\tilde{\mathcal{B}}\right| \leq |\mathbb{N}|$, then by part ii of <a href="#def:base_countability">Definition 3</a>, $(X, \mathcal{T}_d)$ is second countable.
+                <div class="thm-qed">
+                    QED
+                </div>
+            </div>
+
+            <p>
+                The result that a separable metrizable space is second countable as presented in <a href="#thm:separable_metrizable_second_count">Theorem 7</a>, when combined with the separability of second countable spaces in <a href="#thm:second_count_separable">Theorem 5</a>, provides a very important result as presented in the following corollary.
+            </p>
+
+            <div class="thm">
+                <b id="cor:metrizable_separability_second_count">
+                    Corollary 2
+                </b>. &nbsp;
+                <i>
+                    A metrizable space is separable if and only if it is second countable.
+                    <br>
+                    Proof. &nbsp;
+                </i>
+
+                This result follows from <a href="#thm:separable_metrizable_second_count">Theorem 7</a> and <a href="#thm:second_count_separable">Theorem 5</a>.
+                <div class="thm-qed">
+                    QED
+                </div>
+            </div>
+
+            <p>
+                <a href="#cor:metrizable_separability_second_count">Corollary 2</a> provides a clear equivalence between separability and second countability for metrizable spaces. Note that this equivalence does not hold for any general topological space.
+            </p>
+
+            <p>
+                A direct example of metrizable space is the space $\mathbb{R}$ with the standard topology induced from the Euclidean metric (<a href="#r_andre">Andre, 2024</a>). It is well-known that $\mathbb{R}$ has a dense subset $\mathbb{Q}$ as we have also explained in <a href="#sect:preliminaries">Section 2</a>. And $\mathbb{Q}$ is a countable set since $|\mathbb{Q}| = |\mathbb{N}| =: \aleph_0$ (<a href="#stoll">Stoll, 1963</a>). Hence, $\mathbb{R}$ is separable by <a href="#def:separable_space">Definition 6</a>. And since it is a metrizable space, <a href="#thm:separable_metrizable_second_count">Theorem 7</a> implies that $\mathbb{R}$ is second countable. We can establish this result from the opposite direction, by identifying that the family
+                $$
+                    \left\{
+                        B_\frac{1}{n}(q) \in \mathcal{P}(\mathbb{R}) \;\middle|\;
+                        n \in \mathbb{N} \land q \in \mathbb{Q}
+                    \right\}
+                $$
+                is a countable base for $\mathbb{R}$. And likewise, <a href="#thm:second_count_separable">Theorem 5</a> implies that $\mathbb{R}$ is separable. This result is a concrete example of <a href="#cor:metrizable_separability_second_count">Corollary 2</a>. One can obtain a similar result for $\mathbb{R}^n$, for any $n \in \mathbb{N}$.
+            </p>
+        </div>
+
+
+        <!-- FINAL THOUGHTS -->
+        <div>
+            <h2 id="sect:final" class="counter">Final Thoughts</h2>
+            <p>
+                In <a href="#sect:main-disc">Section 3</a>, we have explored three foundational properties of metrizable spaces namely, the first countability of metrizable spaces, the second countability of separable metrizable spaces and the equivalence of separability with second countability for metrizable spaces. Beyond simply stating these results, we have also reconstructed the proofs, grounded in the foundational concepts developed in <a href="#sect:preliminaries">Section 2</a>.
+            </p>
+            <p>
+                These properties demonstrate the elegant interplay between general topology and the more structured world of metric spaces. In particular, the equivalence of separability and second countability for metrizable spaces, as presented rigorously in <a href="#cor:metrizable_separability_second_count">Corollary 2</a>, underscores how metrizable spaces stands out as particularly well-behaved within the broader landscape topological spaces.
+            </p>
+            <p>
+                Furthermore, these countability properties are not merely abstract curiosities; they form the groundwork for deeper areas of mathematical analysis. For example, they play a key role in the construction of orthonormal bases in normed spaces, as emphasized in functional analysis (<a href="#kreyszig_fa">Kreyszig, 1978</a>).
+            </p>
+        </div>
+
+        <!-- BIBLIOGRAPHY -->
+        <div>
+            <h2 id="bib">Bibliography</h2>
+            <div id="r_andre">
+                Andre, R. (2024). <i>Point-Set Topology with Topics: Basic General Topology for Graduate Studies</i>. World Scientific Publishing.
+            </div>
+            <div id="bergmann">
+                Bergmann, M., Moor, J., and Nelson, J. (2014). <i>The Logic Book (Sixth Edition)</i>. McGraw-Hill, New York.
+            </div>
+            <div id="kreyszig_fa">
+                Kreyszig, E. (1978). <i>Introductory Functional Analysis with Applications</i>. Wiley, New York.
+            </div>
+            <div id="munkres">
+                Munkres, J. R. (2000). <i>Topology Second Editio</i>. Prentice Hall.
+            </div>
+            <div id="rudin">
+                Rudin, W. (1964). <i>Principles of Mathematical Analysis</i>. McGraw-Hill, New York.
+            </div>
+            <div id="searcoid">
+                Searcoid, M. O. (2007). <i>Metric Spaces</i>. Springer Verlag, London.
+            </div>
+            <div id="stoll">
+                Stoll, R. R. (1963). <i>Set Theory and Logic</i>. Dover, New York.
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="right-bar"></div>
+</div>
