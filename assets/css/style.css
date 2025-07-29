@@ -29,6 +29,10 @@ h3.counter {
     counter-increment: h3;
 }
 
+h3.counter::before {
+    content: counter(h2) "." counter(h3) " ";
+}
+
 header {
     background-color: rgb(40, 215, 180);
     color: white;
@@ -46,6 +50,13 @@ footer {
     padding: 1.4%;
     text-align: right;
     font-size: small;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.14rem;
+    text-underline-offset: 0.2rem;
+    color: black;
 }
 
 nav a {
@@ -86,6 +97,20 @@ blockquote {
 
 img.featured {
     max-width: 60%;
+}
+
+table {
+    border-collapse: collapse;
+    width: 60%;
+    border: 1;
+}
+th, td {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+thead {
+    background-color: #f2f2f2;
 }
 
 
@@ -131,6 +156,13 @@ img.home {
 
 .feat_title a {
     color: white;
+}
+
+.feat_title a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.3rem;
+    text-underline-offset: 0.4rem;
+    color: black;
 }
 
 .quotation_pic {
@@ -345,6 +377,27 @@ img.home {
 
 .side-toc {
     margin-bottom: 4rem;
+}
+
+.project-tag {
+    background-color: rgb(40, 215, 180);
+    border-radius: 0.2rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    margin-right: 0.4rem;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+}
+
+.project-tag a {
+    color: white;
+}
+
+.project-tag a:hover {
+    color: black;
 }
 
 
