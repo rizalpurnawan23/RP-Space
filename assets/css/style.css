@@ -34,7 +34,8 @@ h3.counter::before {
 }
 
 header {
-    background-color: rgb(40, 215, 180);
+    /* background-color: rgb(40, 215, 180); */
+    background-color: cadetblue;
     color: white;
     padding-top: 3%;
     padding-bottom: 3%;
@@ -44,7 +45,9 @@ header {
 }
 
 footer {
-    background-color: rgb(55, 130, 180);
+    /* background-color: rgb(55, 130, 180); */
+    background-color: cadetblue;
+    margin-top: 8rem;
     font-family: 'Poppins', sans-serif;
     color: white;
     padding: 1.4%;
@@ -122,7 +125,8 @@ thead {
     font-weight: bold;
     font-size: 400%;
     text-align: center;
-    color: rgb(40, 215, 180);
+    /* color: rgb(40, 215, 180); */
+    color: cadetblue;
 }
 
 img.home {
@@ -136,7 +140,8 @@ img.home {
     font-weight: bold;
     font-size: 150%;
     text-align: center;
-    color: rgb(55, 130, 180);
+    /* color: rgb(55, 130, 180); */
+    color: slategray;
 }
 
 .content {
@@ -172,6 +177,7 @@ img.home {
 .offer {
     padding: 2% 3%;
     background-color: rgb(40, 215, 180);
+    /* background-color: slategray; */
     border: none;
     border-radius: 0.2rem;
     margin: 0.5%;
@@ -179,8 +185,8 @@ img.home {
     font-size: medium;
     font-weight: bold;
     color: white;
-    text-decoration: none;
-    text-underline-offset: 0.4rem;
+    /* text-decoration: none; */
+    /* text-underline-offset: 0.4rem; */
 }
 
 .offer-env{
@@ -189,16 +195,10 @@ img.home {
     margin-bottom: 10%;
 }
 
-.offer a {
-    color: white;
-    text-decoration: none;
-}
-
-.offer a:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 0.2rem;
-    text-underline-offset: 0.4rem;
+.offer:hover {
     color: black;
+    background-color: cadetblue;
+    cursor: pointer;
 }
 
 .socmed_title {
@@ -238,14 +238,31 @@ img.home {
     padding-bottom: 2%;
     padding-left: 4%;
     padding-right: 4%;
-    max-width: 85%;
+    max-width: 80%;
     display: block;
-    border: 0.6px solid rgb(220, 220, 220);
-    background-color: white;
-    border-radius: 0.1rem;
+    border: 0 solid;
+    /* border: 0.6px solid rgb(220, 220, 220); */
+    /* background-color: white; */
+    background-color: slategray;
+    border-radius: 0.3rem;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2%;
+    margin-top: 1.8rem;
+    color: white;
+}
+
+.boxed_content-title {
+    color: white;
+}
+
+.boxed_content a {
+    color: lightskyblue;
+    /* font-weight: bold; */
+}
+
+.boxed_content a:hover {
+    color: black;
+    /* font-weight: bold; */
 }
 
 .opening {
@@ -262,14 +279,16 @@ img.home {
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 200%;
-    color: rgb(40, 215, 180);
+    /* color: rgb(40, 215, 180); */
+    color: cadetblue;
 }
 
 .opening-bar {
     max-width: 4rem;
     height: 0.4rem;
     border: none;
-    background-color: rgb(55, 130, 180);
+    /* background-color: rgb(55, 130, 180); */
+    background-color: slategray;
 }
 
 .opening-caption {
@@ -280,7 +299,8 @@ img.home {
     padding-top: 4rem;
     font-size: 240%;
     font-weight: bold;
-    color: rgb(40, 215, 180);
+    /* color: rgb(40, 215, 180); */
+    color: cadetblue;
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
@@ -310,6 +330,27 @@ img.home {
 .anecdote-title {
     text-align: center;
     font-weight: bold;
+}
+
+.article-open-env {
+    margin-top: 0.5rem;
+    text-align: right;
+}
+
+.article-open {
+    padding: 2% 3%;
+    border: 0 solid;
+    background-color: rgb(40, 215, 180);
+    border-radius: 0.2rem;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+}
+
+.article-open:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
 }
 
 
@@ -455,16 +496,15 @@ img.home {
 
     .offer {
         padding: 1% 2%;
-        background-color: rgb(40, 215, 180);
-        border: none;
-        border-radius: 0.2rem;
+        /* border: none; */
+        /* border-radius: 0.2rem; */
         margin: 0.5%;
-        font-family: 'Poppins', sans-serif;
+        /* font-family: 'Poppins', sans-serif; */
         font-size: large;
         font-weight: bold;
-        color: white;
-        text-decoration: none;
-        text-underline-offset: 0.4rem;
+        /* color: white; */
+        /* text-decoration: none; */
+        /* text-underline-offset: 0.4rem; */
     }
 
     .socmed_icon {
@@ -491,7 +531,7 @@ img.home {
         padding-right: 4%;
         max-width: 60%;
         border-radius: 0.2rem;
-        margin-top: 1%;
+        margin-top: 2rem;
     }
 
     .about-title {
@@ -509,6 +549,15 @@ img.home {
 
     .article-author img {
         max-width: 1.5%;
+    }
+
+    .article-open {
+        padding: 1% 2%;
+        font-size: medium;
+    }
+
+    .article-open-env {
+        margin-top: 2rem;
     }
 
     .side-toc {
