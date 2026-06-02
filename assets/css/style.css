@@ -256,7 +256,8 @@ img.home {
 }
 
 .boxed_content a {
-    color: lightskyblue;
+    color: yellow;
+    /* color: lightskyblue; */
     /* font-weight: bold; */
 }
 
