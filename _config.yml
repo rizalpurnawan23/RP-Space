@@ -3,3 +3,10 @@ mathjax: true
 markdown: kramdown
 kramdown:
   input: GFM
+
+# Added for GitHub Pages automatic sitemap generation
+url: "https://rizalpurnawan23.github.io"
+baseurl: "/RP-Space"
+
+plugins:
+  - jekyll-sitemap
